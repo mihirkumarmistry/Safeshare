@@ -5,7 +5,7 @@ import { NavigationEnd, Router, RouterModule, Event } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 // project import
-import { NavigationItem, NavigationItems } from '../../../../theme/layouts/admin-layout/navigation/navigation';
+import { NavigationItem, NavigationItems } from '../../../../theme/layouts/user-layout/navigation/navigation';
 
 // icons
 import { IconModule, IconService } from '@ant-design/icons-angular';
@@ -61,7 +61,7 @@ export class BreadcrumbComponent {
         const breadcrumbList = this.filterNavigation(this.navigations, activeLink);
         this.navigationList = breadcrumbList;
         const title = breadcrumbList[breadcrumbList.length - 1]?.title || 'Welcome';
-        this.titleService.setTitle(title + ' | Mantis  Angular Admin Template');
+        this.titleService.setTitle('Safeshare | ' + title);
       }
     });
   }

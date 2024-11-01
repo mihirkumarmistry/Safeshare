@@ -1,32 +1,24 @@
 import { Routes } from '@angular/router';
-import { AdminComponent } from './theme/layouts/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './theme/layouts/user-layout/user-layout.component';
 import { GuestComponent } from './theme/layouts/guest/guest.component';
 
 export const routes: Routes = [
     {
       path: '',
-      component: AdminComponent,
+      component: UserLayoutComponent,
       children: [
         {
           path: '',
-          redirectTo: '/dashboard/default',
+          redirectTo: '/dashboard',
           pathMatch: 'full'
         },
         {
-          path: 'dashboard/default',
-          loadComponent: () => import('./demo/default/dashboard/dashboard.component').then((c) => c.DefaultComponent)
-        },
-        {
-          path: 'typography',
-          loadComponent: () => import('./demo/ui-component/typography/typography.component')
-        },
-        {
-          path: 'color',
-          loadComponent: () => import('./demo/ui-component/ui-color/ui-color.component')
+          path: 'dashboard',
+          loadComponent: () => import('./web/default/dashboard/dashboard.component').then((c) => c.DefaultComponent)
         },
         {
           path: 'sample-page',
-          loadComponent: () => import('./demo/other/sample-page/sample-page.component')
+          loadComponent: () => import('./web/other/sample-page/sample-page.component')
         }
       ]
     },
@@ -36,11 +28,11 @@ export const routes: Routes = [
       children: [
         {
           path: 'login',
-          loadComponent: () => import('./demo/authentication/login/login.component')
+          loadComponent: () => import('./authentication/login/login.component')
         },
         {
           path: 'register',
-          loadComponent: () => import('./demo/authentication/register/register.component')
+          loadComponent: () => import('./authentication/register/register.component')
         }
       ]
     }
