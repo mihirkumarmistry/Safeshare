@@ -29,11 +29,12 @@ export const routes: Routes = [
         {
           path: 'login',
           loadComponent: () => import('./authentication/login/login.component')
-        },
-        {
-          path: 'register',
-          loadComponent: () => import('./authentication/register/register.component')
         }
+        // ,
+        // {
+        //   path: 'register',
+        //   loadComponent: () => import('./authentication/register/register.component')
+        // }
       ]
     }
   ];
