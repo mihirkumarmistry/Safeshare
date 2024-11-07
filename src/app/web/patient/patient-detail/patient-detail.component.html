@@ -1,0 +1,263 @@
+<div class="col-md-12">
+    <div class="page-header-title">
+        <h2 class="mb-0 f-w-600 mt-2">{{patientId === 0 ? 'Add' : 'Edit'}} Patient</h2>
+    </div>
+</div>
+
+<form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+    <div class="row gx-3">
+
+        <!-- Personal Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Personal Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="firstName">First Name *</label>
+                <input id="firstName" type="text" formControlName="firstName" placeholder="Enter first name"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('firstName').invalid && patientForm.get('firstName').touched) {
+                    @if (patientForm.get('firstName').errors['required']) {
+                    <small class="text-danger">First name is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="middleName">Middle Name</label>
+                <input id="middleName" type="text" formControlName="middleName" placeholder="Enter middle name"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="lastName">Last Name *</label>
+                <input id="lastName" type="text" formControlName="lastName" placeholder="Enter last name"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('lastName').invalid && patientForm.get('lastName').touched) {
+                    @if (patientForm.get('lastName').errors['required']) {
+                    <small class="text-danger">Last name is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="dob">Date Of Birth *</label>
+                <input id="dob" type="date" formControlName="dob" placeholder="Select date of birth"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('dob').invalid && patientForm.get('dob').touched) {
+                    @if (patientForm.get('dob').errors['required']) {
+                    <small class="text-danger">Date Of Birth is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="gender">Gender *</label>
+                <input id="gender" type="text" formControlName="gender" placeholder="Select gender"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('gender').invalid && patientForm.get('gender').touched) {
+                    @if (patientForm.get('gender').errors['required']) {
+                    <small class="text-danger">Gender is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="contact">Contact *</label>
+                <input id="contact" type="text" formControlName="contact" placeholder="Enter contact number"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('contact').invalid && patientForm.get('contact').touched) {
+                    @if (patientForm.get('contact').errors['required']) {
+                    <small class="text-danger">Contact is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="addressLine1">Address Line 1 *</label>
+                <input id="addressLine1" type="text" formControlName="addressLine1" placeholder="Enter Address Line 1"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('addressLine1').invalid && patientForm.get('addressLine1').touched) {
+                    @if (patientForm.get('addressLine1').errors['required']) {
+                    <small class="text-danger">Address Line 1 is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="addressLine2">Address Line 2</label>
+                <input id="addressLine2" type="text" formControlName="addressLine2" placeholder="Enter Address Line 2"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <label class="form-label" for="city">City *</label>
+                <input id="city" type="text" formControlName="city" placeholder="Enter city" class="form-control" />
+                <div>
+                    @if (patientForm.get('city').invalid && patientForm.get('city').touched) {
+                    @if (patientForm.get('city').errors['required']) {
+                    <small class="text-danger">City is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <label class="form-label" for="state">State *</label>
+                <input id="state" type="text" formControlName="state" placeholder="Enter state" class="form-control" />
+                <div>
+                    @if (patientForm.get('state').invalid && patientForm.get('state').touched) {
+                    @if (patientForm.get('state').errors['required']) {
+                    <small class="text-danger">State is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <label class="form-label" for="country">Country *</label>
+                <input id="country" type="text" formControlName="country" placeholder="Enter country"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('country').invalid && patientForm.get('country').touched) {
+                    @if (patientForm.get('country').errors['required']) {
+                    <small class="text-danger">Country is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mb-3">
+                <label class="form-label" for="zipCode">Zip Code *</label>
+                <input id="zipCode" type="text" formControlName="zipCode" placeholder="Enter zip code"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('zipCode').invalid && patientForm.get('zipCode').touched) {
+                    @if (patientForm.get('zipCode').errors['required']) {
+                    <small class="text-danger">Zip Code is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Contact Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="emergencyContact">Emergency Contact *</label>
+                <input id="emergencyContact" type="text" formControlName="emergencyContact"
+                    placeholder="Enter emergency contact" class="form-control" />
+                <div>
+                    @if (patientForm.get('emergencyContact').invalid && patientForm.get('emergencyContact').touched) {
+                    @if (patientForm.get('emergencyContact').errors['required']) {
+                    <small class="text-danger">Emergency Contact is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="contactName">Contact Person Name *</label>
+                <input id="contactName" type="text" formControlName="contactName"
+                    placeholder="Enter contact person name" class="form-control" />
+                <div>
+                    @if (patientForm.get('contactName').invalid && patientForm.get('contactName').touched) {
+                    @if (patientForm.get('contactName').errors['required']) {
+                    <small class="text-danger">Contact Person Name is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="relationship">Relationship *</label>
+                <input id="relationship" type="text" formControlName="relationship" placeholder="Enter relationship"
+                    class="form-control" />
+                <div>
+                    @if (patientForm.get('relationship').invalid && patientForm.get('relationship').touched) {
+                    @if (patientForm.get('relationship').errors['required']) {
+                    <small class="text-danger">Relationship is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Insurance Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Insurance Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="providerName">Provider Name</label>
+                <input id="providerName" type="text" formControlName="providerName"
+                    placeholder="Enter provider name" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="policyNumber">Policy Number</label>
+                <input id="policyNumber" type="text" formControlName="policyNumber"
+                    placeholder="Enter policy number" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="policyholderName">Policyholder Name</label>
+                <input id="policyholderName" type="text" formControlName="policyholderName"
+                    placeholder="Enter policyholder name" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="insuranceContact">Insurance Contact</label>
+                <input id="insuranceContact" type="text" formControlName="insuranceContact"
+                    placeholder="Enter insurance contact" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary mb-3 me-3" (click)="onCancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary mb-3" [disabled]="patientForm.invalid">{{patientId === 0 ? 'Save' : 'Update'}}</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,42 @@
+<div class="col-md-12">
+    <div class="d-flex justify-content-between">
+        <div class="form-group mb-3">
+            <input id="search" type="search" [(ngModel)]="searchText" placeholder="Search" class="tbl-search form-control"/>
+        </div>
+        <button type="button" class="btn btn-primary mb-3" (click)="addMedicalHistory()">Add Medical History</button>
+    </div>
+    <div class="card tbl-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>ID.</th>
+                        <th>PATIENT</th>
+                        <th>APPOINMENT</th>
+                        <th class="text-end">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (medical of medicalHistoryList | filter: searchText | slice : pageStart : pageEnd ; track medical) {
+                    <tr>
+                        <td>
+                            <a href="javascript:" class="text-muted">{{ medical.id }}</a>
+                        </td>
+                        <td>{{ medical.patientId }}</td>
+                        <td>{{ medical.appoinemntId }}</td>
+                        <td class="text-end py-2">
+                            <div class="d-flex justify-content-end">
+                                <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editMedicalHistory(medical.id)"></i>
+                                <i class="icon-font ms-2 action-btn danger disabled" antIcon theme="outline" type="delete"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <app-pagination [collectionSize]="medicalHistoryList.length" [pageSize]="pageSize" (onChange)="handlePageChange($event)"></app-pagination>
+    </div>
+</div>

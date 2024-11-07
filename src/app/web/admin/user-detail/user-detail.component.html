@@ -1,0 +1,100 @@
+<div class="col-md-12">
+    <div class="page-header-title">
+        <h2 class="mb-0 f-w-600 mt-2">{{userId === 0 ? 'Add' : 'Edit'}} User</h2>
+    </div>
+</div>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="row gx-3">
+
+        <!-- Personal Details -->
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="firstName">First Name *</label>
+                        <input id="firstName" type="text" formControlName="firstName" placeholder="Enter first name"
+                            class="form-control" />
+                        <div>
+                            @if (userForm.get('firstName').invalid && userForm.get('firstName').touched) {
+                            @if (userForm.get('firstName').errors['required']) {
+                            <small class="text-danger">First name is required.</small>
+                            }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="lastName">Last Name *</label>
+                        <input id="lastName" type="text" formControlName="lastName" placeholder="Enter last name"
+                            class="form-control" />
+                        <div>
+                            @if (userForm.get('lastName').invalid && userForm.get('lastName').touched) {
+                            @if (userForm.get('lastName').errors['required']) {
+                            <small class="text-danger">Last name is required.</small>
+                            }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="email">Email *</label>
+                        <input id="email" type="email" formControlName="email" placeholder="Enter email"
+                            class="form-control" />
+                        <div>
+                            @if (userForm.get('email').invalid && userForm.get('email').touched) {
+                            @if (userForm.get('email').errors['required']) {
+                            <small class="text-danger">Email is required.</small>
+                            }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="password">Password *</label>
+                        <input id="password" type="password" formControlName="password" placeholder="Enter password"
+                            class="form-control" />
+                        <div>
+                            @if (userForm.get('password').invalid && userForm.get('password').touched) {
+                            @if (userForm.get('password').errors['required']) {
+                            <small class="text-danger">Password is required.</small>
+                            }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="type">Type *</label>
+                        <input id="type" type="type" formControlName="type" placeholder="Select type"
+                            class="form-control" />
+                        <div>
+                            @if (userForm.get('type').invalid && userForm.get('type').touched) {
+                            @if (userForm.get('type').errors['required']) {
+                            <small class="text-danger">Type is required.</small>
+                            }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-check mb-3">
+                        <label class="form-check-label" for="isActive">Is Active</label>
+                        <input class="form-check-input" formControlName="isActive" type="checkbox" id="isActive">
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary mb-3 me-3" (click)="onCancel()">Cancel</button>
+                    <button type="submit" class="btn btn-primary mb-3" [disabled]="userForm.invalid">{{userId === 0 ? 'Save'
+                        : 'Update'}}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,421 @@
+<div class="col-md-12">
+    <div class="page-header-title">
+        <h2 class="mb-0 f-w-600 mt-2">{{medicalHistoryId === 0 ? 'Add' : 'Edit'}} Medical History</h2>
+    </div>
+</div>
+
+<form [formGroup]="medicalHistoryForm" (ngSubmit)="onSubmit()">
+    <div class="row gx-3">
+
+        <!-- Patient Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Patient Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="patientId">Select Patient *</label>
+                <input id="patientId" type="text" formControlName="patientId" placeholder="Select Patient"
+                    class="form-control" />
+                <div>
+                    @if (medicalHistoryForm.get('patientId').invalid && medicalHistoryForm.get('patientId').touched) {
+                    @if (medicalHistoryForm.get('patientId').errors['required']) {
+                    <small class="text-danger">Patient is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="appoinmentId">Select Appointment *</label>
+                <input id="appoinmentId" type="text" formControlName="appoinmentId" placeholder="Select appointment"
+                    class="form-control" />
+                <div>
+                    @if (medicalHistoryForm.get('appoinmentId').invalid &&
+                    medicalHistoryForm.get('appoinmentId').touched) {
+                    @if (medicalHistoryForm.get('appoinmentId').errors['required']) {
+                    <small class="text-danger">Appoinment is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Allergies Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Allergies Details</span>
+                <hr>
+            </div>
+        </div>
+
+        <div formArrayName="allergies">
+            <div class="card tbl-card">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>ALLERGIE NAME *</th>
+                                <th>DETAIL *</th>
+                                <th class="text-end">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(allergieItem of allergies.controls; track allergieItem; let i = $index){
+                            <tr [formGroupName]="i">
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="key" placeholder="Enter allergie name"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="value" placeholder="Enter detail"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+
+                                <td class="text-end py-2">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="removeAllergie(i)">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary" (click)="addAllergie()">Add
+                                            Allergie</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Previous Medical Conditions -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Previous Medical Conditions</span>
+                <hr>
+            </div>
+        </div>
+
+        <div formArrayName="previousMedicalConditions">
+            <div class="card tbl-card">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>MEDICAL CONDITION *</th>
+                                <th>DETAIL *</th>
+                                <th class="text-end">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(previousMedicalConditionsItem of previousMedicalConditions.controls; track
+                            previousMedicalConditionsItem; let i = $index){
+                            <tr [formGroupName]="i">
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="key" placeholder="Enter medical condition"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="value" placeholder="Enter detail"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+
+                                <td class="text-end py-2">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="removePreviousMedicalCondition(i)">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="addPreviousMedicalCondition()">Add
+                                            Medical Condition</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medication Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Medication Details</span>
+                <hr>
+            </div>
+        </div>
+
+        <div formArrayName="medications">
+            <div class="card tbl-card">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>NAME *</th>
+                                <th>DOSAGE *</th>
+                                <th>FREQUENCY *</th>
+                                <th>CURRENT *</th>
+                                <th class="text-end">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(medicationItem of medications.controls; track medicationItem; let i = $index){
+                            <tr [formGroupName]="i">
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="name" placeholder="Enter name"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="dosage" placeholder="Enter dosage"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="frequency" placeholder="Enter frequency"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" formControlName="isCurrent" type="checkbox">
+                                    </div>
+                                </td>
+
+                                <td class="text-end py-2">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="removePreviousMedicalCondition(i)">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="addPreviousMedicalCondition()">Add
+                                            Medical Condition</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Surgical History -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Surgical History</span>
+                <hr>
+            </div>
+        </div>
+
+        <div formArrayName="surgicalHistory">
+            <div class="card tbl-card">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>PROCEDURE NAME *</th>
+                                <th>PROCEDURE DATE *</th>
+                                <th>DOCTOR NAME *</th>
+                                <th>HOSPITAL NAME *</th>
+                                <th class="text-end">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(surgicalHistoryItem of surgicalHistory.controls; track surgicalHistoryItem; let i = $index){
+                            <tr [formGroupName]="i">
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="procedureName" placeholder="Enter procedure name"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="date" formControlName="procedureDate" placeholder="Enter procedure date"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="doctorName" placeholder="Enter doctor name"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="hospitalName" placeholder="Enter hospital name"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+
+                                <td class="text-end py-2">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="removeSurgicalHistory(i)">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="addSurgicalHistory()">Add Surgical History</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Diagnostic Test  Detail -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Diagnostic Test  Detail</span>
+                <hr>
+            </div>
+        </div>
+
+        <div formArrayName="diagnosticTest">
+            <div class="card tbl-card">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>LAB TEST NAME *</th>
+                                <th>LAB TEST DATE *</th>
+                                <th>RESULT *</th>
+                                <th>IMAGE *</th>
+                                <th>IMAGE FINDINNGS *</th>
+                                <th class="text-end">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(diagnosticTestItem of diagnosticTest.controls; track diagnosticTestItem; let i = $index){
+                            <tr [formGroupName]="i">
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="labTestName" placeholder="Enter lab test name"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="date" formControlName="labTestDate" placeholder="Enter lab test date"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="result" placeholder="Enter result"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="file" formControlName="image" placeholder="Upload test image"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="imageFindings" placeholder="Enter image findings"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+
+                                <td class="text-end py-2">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="removeDiagnosticTest(i)">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="addDiagnosticTest()">Add Diagnostic</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary mb-3 me-3" (click)="onCancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary mb-3"
+                    [disabled]="medicalHistoryForm.invalid">{{medicalHistoryId === 0 ?
+                    'Save' : 'Update'}}</button>
+            </div>
+        </div>
+    </div>
+</form>

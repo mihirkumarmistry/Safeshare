@@ -20,14 +20,14 @@ export interface NavigationItem {
 
 export const NavigationItems: NavigationItem[] = [
   {
-    id: 'dashboard',
-    title: 'Dashboard',
+    id: 'general',
+    title: 'General',
     type: 'group',
     icon: 'icon-navigation',
     children: [
       {
-        id: 'default',
-        title: 'Default',
+        id: 'dashboard',
+        title: 'Dashboard',
         type: 'item',
         classes: 'nav-item',
         url: '/dashboard',
@@ -42,6 +42,70 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         icon: 'chrome'
       },
+    ]
+  },
+  {
+    id: 'patient',
+    title: 'Patient',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+      {
+        id: 'patient',
+        title: 'Patient',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/patient',
+        icon: 'user',
+      },
+      {
+        id: 'medical-history',
+        title: 'Medical History',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/medical-history',
+        icon: 'plus-circle',
+      },
+      {
+        id: 'appointment',
+        title: 'Appointment',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/appointment',
+        icon: 'calendar',
+      },
+      {
+        id: 'billing',
+        title: 'Billing',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/billing',
+        icon: 'dollar',
+      }
+    ]
+  },
+  {
+    id: 'admin',
+    title: 'Admin',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+      {
+        id: 'setting',
+        title: 'Setting',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/setting',
+        icon: 'setting',
+      },
+      {
+        id: 'user',
+        title: 'User',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/user',
+        icon: 'user',
+      }
     ]
   }
 ];

@@ -1,0 +1,48 @@
+<div class="col-md-12">
+    <div class="d-flex justify-content-between">
+        <div class="form-group mb-3">
+            <input id="search" type="search" [(ngModel)]="searchText" placeholder="Search" class="tbl-search form-control"/>
+        </div>
+        <button type="button" class="btn btn-primary mb-3" (click)="adduser()">Add user</button>
+    </div>
+    <div class="card tbl-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>ID.</th>
+                        <th>FIRST NAME</th>
+                        <th>LAST NAME</th>
+                        <th>EMAIL</th>
+                        <th>TYPE</th>
+                        <th>IS ACTIVE</th>
+                        <th class="text-end">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (user of userList | filter: searchText | slice : pageStart : pageEnd ; track user) {
+                    <tr>
+                        <td>
+                            <a href="javascript:" class="text-muted">{{ user.id }}</a>
+                        </td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.type }}</td>
+                        <td>{{ user.isActive }}</td>
+                        <td class="text-end py-2">
+                            <div class="d-flex justify-content-end">
+                                <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editPatent(user.id)"></i>
+                                <i class="icon-font ms-2 action-btn danger disabled" antIcon theme="outline" type="delete"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <app-pagination [collectionSize]="userList.length" [pageSize]="pageSize" (onChange)="handlePageChange($event)"></app-pagination>
+    </div>
+</div>

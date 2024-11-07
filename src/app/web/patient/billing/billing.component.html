@@ -1,0 +1,50 @@
+<div class="col-md-12">
+    <div class="d-flex justify-content-between">
+        <div class="form-group mb-3">
+            <input id="search" type="search" [(ngModel)]="searchText" placeholder="Search" class="tbl-search form-control"/>
+        </div>
+        <button type="button" class="btn btn-primary mb-3" (click)="addPatient()">Add Patient</button>
+    </div>
+    <div class="card tbl-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>ID.</th>
+                        <th>PATIENT</th>
+                        <th>DATE</th>
+                        <th>Amount</th>
+                        <th>PAID</th>
+                        <th>PAYMENT TYPE</th>
+                        <th>PAYMENT STATUS</th>
+                        <th class="text-end">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (bill of billList | filter: searchText | slice : pageStart : pageEnd ; track bill) {
+                    <tr>
+                        <td>
+                            <a href="javascript:" class="text-muted">{{ bill.id }}</a>
+                        </td>
+                        <td>{{ bill.patientId }}</td>
+                        <td>{{ bill.billingDate }}</td>
+                        <td>{{ bill.finalBillAmount }}</td>
+                        <td>{{ bill.amountPaid ? bill.amountPaid : '-' }}</td>
+                        <td>{{ bill.paymentMode ? bill.paymentMode : '-'  }}</td>
+                        <td>{{ bill.paymentStatus }}</td>
+                        <td class="text-end py-2">
+                            <div class="d-flex justify-content-end">
+                                <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editPatent(bill.id)"></i>
+                                <i class="icon-font ms-2 action-btn danger  disabled" antIcon theme="outline" type="delete"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <app-pagination [collectionSize]="billList.length" [pageSize]="pageSize" (onChange)="handlePageChange($event)"></app-pagination>
+    </div>
+</div>

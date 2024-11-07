@@ -14,6 +14,8 @@ import { IconModule } from '@ant-design/icons-angular';
 
 // bootstrap import
 import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbComponent,
+    PaginationComponent,
     NgbDropdownModule,
     NgbNavModule,
     NgbModule,
@@ -34,6 +37,7 @@ import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbComponent,
+    PaginationComponent,
     SpinnerComponent,
     NgbModule,
     NgbDropdownModule,
@@ -41,8 +45,9 @@ import { NgbDropdownModule, NgbNavModule, NgbModule, NgbCollapseModule } from '@
     NgbCollapseModule,
     NgScrollbarModule,
     CardComponent,
-    IconModule
+    IconModule,
+    FilterPipe
   ],
-  declarations: [SpinnerComponent]
+  declarations: [SpinnerComponent, FilterPipe]
 })
 export class SharedModule {}
