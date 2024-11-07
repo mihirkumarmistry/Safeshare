@@ -1,0 +1,255 @@
+<div class="col-md-12">
+    <div class="page-header-title">
+        <h2 class="mb-0 f-w-600 mt-2">{{billId === 0 ? 'Create' : 'Edit'}} Bill</h2>
+    </div>
+</div>
+
+<form [formGroup]="billingForm" (ngSubmit)="onSubmit()">
+    <div class="row gx-3">
+
+        <!-- Patient Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Patient Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="patientId">Select Patient *</label>
+                <input id="patientId" type="text" formControlName="patientId" placeholder="Select Patient"
+                    class="form-control" />
+                <div>
+                    @if (billingForm.get('patientId').invalid && billingForm.get('patientId').touched) {
+                    @if (billingForm.get('patientId').errors['required']) {
+                    <small class="text-danger">Patient is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="appoinmentId">Select Appointment *</label>
+                <input id="appoinmentId" type="text" formControlName="appoinmentId" placeholder="Select appointment"
+                    class="form-control" />
+                <div>
+                    @if (billingForm.get('appoinmentId').invalid && billingForm.get('appoinmentId').touched) {
+                    @if (billingForm.get('appoinmentId').errors['required']) {
+                    <small class="text-danger">Appoinment is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Billing Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Billing Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="billingDate">Billing Date *</label>
+                <input id="billingDate" type="date" formControlName="billingDate" placeholder="Select Billing Date"
+                    class="form-control" />
+                <div>
+                    @if (billingForm.get('billingDate').invalid && billingForm.get('billingDate').touched) {
+                    @if (billingForm.get('billingDate').errors['required']) {
+                    <small class="text-danger">Billing date is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label class="form-label" for="billingDueDate">Billing Due Date *</label>
+                <input id="billingDueDate" type="date" formControlName="billingDueDate"
+                    placeholder="Select Billing Due Date" class="form-control" />
+                <div>
+                    @if (billingForm.get('billingDueDate').invalid && billingForm.get('billingDueDate').touched) {
+                    @if (billingForm.get('billingDueDate').errors['required']) {
+                    <small class="text-danger">Billing due date is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div formArrayName="breakdown">
+            <div class="card tbl-card">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>SERVICE NAME *</th>
+                                <th>TYPE *</th>
+                                <th>AMOUNT *</th>
+                                <th class="text-end">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(breakdownItem of breakdown.controls; track breakdownItem; let i = $index){
+                            <tr [formGroupName]="i">
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="serviceName"
+                                            placeholder="Enter service name" class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="text" formControlName="type" placeholder="Select type"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mb-3">
+                                        <input type="number" formControlName="amount" placeholder="Enter amount"
+                                            class="form-control" />
+                                    </div>
+                                </td>
+                                <td class="text-end py-2">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-danger" (click)="removeBreakdown(i)">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary" (click)="addBreakdown()">Add Service</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="totalAmount">Total Amount</label>
+                <input id="totalAmount" type="number" formControlName="totalAmount" class="form-control" [disabled]="true"/>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="tax">Tax % *</label>
+                <input id="tax" type="number" formControlName="tax" placeholder="Enter tax %" class="form-control"/>
+                <div>
+                    @if (billingForm.get('tax').invalid && billingForm.get('tax').touched) {
+                    @if (billingForm.get('tax').errors['required']) {
+                    <small class="text-danger">Tax percentage is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="taxAmount">Tax amount *</label>
+                <input id="taxAmount" type="number" formControlName="taxAmount" class="form-control" [disabled]="true"/>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="discounts">Discounts</label>
+                <input id="discounts" type="number" formControlName="discounts" class="form-control"/>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="insuranceCoverageAmount">Insurance Coverage Amount</label>
+                <input id="insuranceCoverageAmount" type="number" formControlName="insuranceCoverageAmount" placeholder="Enter insurance coverage amount" class="form-control"/>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="insuranceNumber">Insurance Number</label>
+                <input id="insuranceNumber" type="text" formControlName="insuranceNumber" placeholder="Enter insurance number" class="form-control"/>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="finalBillAmount">Final Bill Amount</label>
+                <input id="finalBillAmount" type="text" formControlName="finalBillAmount" class="form-control" [disabled]="true"/>
+            </div>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Payment Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="paymentDate">Payment Date</label>
+                <input id="paymentDate" type="text" formControlName="paymentDate" placeholder="Select payment date"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="paymentMode">Payment Mode</label>
+                <input id="paymentMode" type="text" formControlName="paymentMode" placeholder="Select payment mode"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="amountPaid">Amount Paid</label>
+                <input id="amountPaid" type="text" formControlName="amountPaid" placeholder="Enter amount paid"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="transactionId">Transaction Id</label>
+                <input id="transactionId" type="text" formControlName="transactionId" placeholder="Enter transaction id"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="balanceDue">Balance Due</label>
+                <input id="balanceDue" type="text" formControlName="balanceDue" placeholder="Enter balance due"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="paymentStatus">Payment Status</label>
+                <input id="paymentStatus" type="text" formControlName="paymentStatus"
+                    placeholder="Select Payment Status" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary mb-3 me-3" (click)="onCancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary mb-3" [disabled]="billingForm.invalid">{{billId === 0 ?
+                    'Save' : 'Update'}}</button>
+            </div>
+        </div>
+    </div>
+</form>

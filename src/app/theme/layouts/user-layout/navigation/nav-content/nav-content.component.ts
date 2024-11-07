@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 // project import
 import { NavigationItem, NavigationItems } from '../navigation';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environments/environment.prod';
 import { SharedModule } from '../../../../../theme/shared/shared.module';
 import { NavCollapseComponent } from './nav-collapse/nav-collapse.component';
 import { NavGroupComponent } from './nav-group/nav-group.component';
@@ -22,7 +22,11 @@ import {
   FontSizeOutline,
   ProfileOutline,
   BgColorsOutline,
-  AntDesignOutline
+  AntDesignOutline,
+  DollarOutline,
+  CalendarOutline,
+  PlusCircleOutline,
+  PlusOutline,
 } from '@ant-design/icons-angular/icons';
 
 @Component({
@@ -61,7 +65,11 @@ export class NavContentComponent implements OnInit, AfterViewInit {
         BgColorsOutline,
         AntDesignOutline,
         ChromeOutline,
-        QuestionOutline
+        QuestionOutline,
+        DollarOutline,
+        CalendarOutline,
+        PlusCircleOutline,
+        PlusOutline,
       ]
     );
     this.navigations = NavigationItems;

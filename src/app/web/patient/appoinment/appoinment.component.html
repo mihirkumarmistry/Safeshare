@@ -1,0 +1,50 @@
+<div class="col-md-12">
+    <div class="d-flex justify-content-between">
+        <div class="form-group mb-3">
+            <input id="search" type="search" [(ngModel)]="searchText" placeholder="Search" class="tbl-search form-control"/>
+        </div>
+        <button type="button" class="btn btn-primary mb-3" (click)="addAppoinment()">Book Appoinment</button>
+    </div>
+    <div class="card tbl-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>PATIENT</th>
+                        <th>DOCTOR</th>
+                        <th>TYPE</th>
+                        <th>DATE</th>
+                        <th>TIME</th>
+                        <th>CONTACT</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (appoinment of appoinmentList | filter: searchText | slice : pageStart : pageEnd ; track appoinment) {
+                    <tr>
+                        <td>
+                            <a href="javascript:" class="text-muted">{{ appoinment.id }}</a>
+                        </td>
+                        <td>{{ appoinment.patientId }}</td>
+                        <td>{{ appoinment.doctorId }}</td>
+                        <td>{{ appoinment.type }}</td>
+                        <td>{{ appoinment.appoinmentDate }}</td>
+                        <td>{{ appoinment.appoinmentTime }}</td>
+                        <td>{{ appoinment.reason }}</td>
+                        <td class="text-end py-2">
+                            <div class="d-flex justify-content-end">
+                                <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editAppoinment(appoinment.id)"></i>
+                                <i class="icon-font ms-2 action-btn danger disabled" antIcon theme="outline" type="delete"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <app-pagination [collectionSize]="appoinmentList.length" [pageSize]="pageSize" (onChange)="handlePageChange($event)"></app-pagination>
+    </div>
+</div>
