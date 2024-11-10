@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "6hEwlic9GEc=",
+  "success": true,
+  "projectFilePath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mihir\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\8.0.10\\microsoft.aspnetcore.jsonpatch.8.0.10.nupkg.sha512",
+    "C:\\Users\\mihir\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\8.0.10\\microsoft.aspnetcore.mvc.newtonsoftjson.8.0.10.nupkg.sha512",
+    "C:\\Users\\mihir\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\mihir\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\mihir\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
