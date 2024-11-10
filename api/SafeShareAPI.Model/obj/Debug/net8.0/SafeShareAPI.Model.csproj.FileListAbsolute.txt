@@ -1,0 +1,12 @@
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\bin\Debug\net8.0\SafeShareAPI.Model.deps.json
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\bin\Debug\net8.0\SafeShareAPI.Model.dll
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\bin\Debug\net8.0\SafeShareAPI.Model.pdb
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\SafeShareAPI.Model.csproj.AssemblyReference.cache
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\SafeShareAPI.Model.GeneratedMSBuildEditorConfig.editorconfig
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\SafeShareAPI.Model.AssemblyInfoInputs.cache
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\SafeShareAPI.Model.AssemblyInfo.cs
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\SafeShareAPI.Model.csproj.CoreCompileInputs.cache
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\SafeShareAPI.Model.dll
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\refint\SafeShareAPI.Model.dll
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\SafeShareAPI.Model.pdb
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Model\obj\Debug\net8.0\ref\SafeShareAPI.Model.dll

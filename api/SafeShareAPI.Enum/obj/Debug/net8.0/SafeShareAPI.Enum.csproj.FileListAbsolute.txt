@@ -1,0 +1,11 @@
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\bin\Debug\net8.0\SafeShareAPI.Enum.deps.json
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\bin\Debug\net8.0\SafeShareAPI.Enum.dll
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\bin\Debug\net8.0\SafeShareAPI.Enum.pdb
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\SafeShareAPI.Enum.GeneratedMSBuildEditorConfig.editorconfig
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\SafeShareAPI.Enum.AssemblyInfoInputs.cache
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\SafeShareAPI.Enum.AssemblyInfo.cs
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\SafeShareAPI.Enum.csproj.CoreCompileInputs.cache
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\SafeShareAPI.Enum.dll
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\refint\SafeShareAPI.Enum.dll
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\SafeShareAPI.Enum.pdb
+D:\Masters\Cloud\SafeShareAPI\SafeShareAPI.Enum\obj\Debug\net8.0\ref\SafeShareAPI.Enum.dll

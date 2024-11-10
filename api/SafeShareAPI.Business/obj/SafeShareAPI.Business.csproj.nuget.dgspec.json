@@ -1,0 +1,387 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Business\\SafeShareAPI.Business.csproj": {}
+  },
+  "projects": {
+    "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Business\\SafeShareAPI.Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Business\\SafeShareAPI.Business.csproj",
+        "projectName": "SafeShareAPI.Business",
+        "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Business\\SafeShareAPI.Business.csproj",
+        "packagesPath": "C:\\Users\\mihir\\.nuget\\packages\\",
+        "outputPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Business\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mihir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Data\\SafeShareAPI.Data.csproj": {
+                "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Data\\SafeShareAPI.Data.csproj"
+              },
+              "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Enum\\SafeShareAPI.Enum.csproj": {
+                "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Enum\\SafeShareAPI.Enum.csproj"
+              },
+              "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj": {
+                "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj"
+              },
+              "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\SafeShareAPI.Provider.csproj": {
+                "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\SafeShareAPI.Provider.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Data\\SafeShareAPI.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Data\\SafeShareAPI.Data.csproj",
+        "projectName": "SafeShareAPI.Data",
+        "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Data\\SafeShareAPI.Data.csproj",
+        "packagesPath": "C:\\Users\\mihir\\.nuget\\packages\\",
+        "outputPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mihir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj": {
+                "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj"
+              },
+              "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\SafeShareAPI.Provider.csproj": {
+                "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\SafeShareAPI.Provider.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Enum\\SafeShareAPI.Enum.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Enum\\SafeShareAPI.Enum.csproj",
+        "projectName": "SafeShareAPI.Enum",
+        "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Enum\\SafeShareAPI.Enum.csproj",
+        "packagesPath": "C:\\Users\\mihir\\.nuget\\packages\\",
+        "outputPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Enum\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mihir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj",
+        "projectName": "SafeShareAPI.Model",
+        "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\SafeShareAPI.Model.csproj",
+        "packagesPath": "C:\\Users\\mihir\\.nuget\\packages\\",
+        "outputPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mihir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\SafeShareAPI.Provider.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\SafeShareAPI.Provider.csproj",
+        "projectName": "SafeShareAPI.Provider",
+        "projectPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\SafeShareAPI.Provider.csproj",
+        "packagesPath": "C:\\Users\\mihir\\.nuget\\packages\\",
+        "outputPath": "D:\\Masters\\Cloud\\Safeshare\\api\\SafeShareAPI.Provider\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mihir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
