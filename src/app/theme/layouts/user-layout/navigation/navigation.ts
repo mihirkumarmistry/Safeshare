@@ -16,6 +16,7 @@ export interface NavigationItem {
   link?: string;
   description?: string;
   path?: string;
+  isAdminOnly?: boolean
 }
 
 export const NavigationItems: NavigationItem[] = [
@@ -24,6 +25,7 @@ export const NavigationItems: NavigationItem[] = [
     title: 'General',
     type: 'group',
     icon: 'icon-navigation',
+    isAdminOnly: true,
     children: [
       {
         id: 'dashboard',
@@ -32,7 +34,8 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/dashboard',
         icon: 'dashboard',
-        breadcrumbs: false
+        breadcrumbs: false,
+        isAdminOnly: true,
       },
       {
         id: 'sample-page',
@@ -40,7 +43,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/sample-page',
         classes: 'nav-item',
-        icon: 'chrome'
+        icon: 'chrome',
+        isAdminOnly: true,
       },
     ]
   },
@@ -49,6 +53,7 @@ export const NavigationItems: NavigationItem[] = [
     title: 'Patient',
     type: 'group',
     icon: 'icon-navigation',
+    isAdminOnly: false,
     children: [
       {
         id: 'patient',
@@ -57,6 +62,7 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/patient',
         icon: 'user',
+        isAdminOnly: false,
       },
       {
         id: 'medical-history',
@@ -65,6 +71,7 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/medical-history',
         icon: 'plus-circle',
+        isAdminOnly: false,
       },
       {
         id: 'appointment',
@@ -73,6 +80,7 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/appointment',
         icon: 'calendar',
+        isAdminOnly: false,
       },
       {
         id: 'billing',
@@ -81,6 +89,7 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/billing',
         icon: 'dollar',
+        isAdminOnly: false,
       }
     ]
   },
@@ -89,6 +98,7 @@ export const NavigationItems: NavigationItem[] = [
     title: 'Admin',
     type: 'group',
     icon: 'icon-navigation',
+    isAdminOnly: true,
     children: [
       {
         id: 'setting',
@@ -97,6 +107,7 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/setting',
         icon: 'setting',
+        isAdminOnly: true,
       },
       {
         id: 'user',
@@ -105,6 +116,7 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/user',
         icon: 'user',
+        isAdminOnly: true,
       }
     ]
   }

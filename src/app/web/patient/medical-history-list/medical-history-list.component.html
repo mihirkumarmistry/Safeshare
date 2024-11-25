@@ -12,7 +12,8 @@
                     <tr>
                         <th>ID.</th>
                         <th>PATIENT</th>
-                        <th>APPOINMENT</th>
+                        <th>TITLE</th>
+                        <th>DETAIL</th>
                         <th class="text-end">ACTIONS</th>
                     </tr>
                 </thead>
@@ -22,12 +23,13 @@
                         <td>
                             <a href="javascript:" class="text-muted">{{ medical.id }}</a>
                         </td>
-                        <td>{{ medical.patientId }}</td>
-                        <td>{{ medical.appoinemntId }}</td>
+                        <td>{{ medical.patientName }}</td>
+                        <td>{{ medical.title }}</td>
+                        <td>{{ medical.detail }}</td>
                         <td class="text-end py-2">
                             <div class="d-flex justify-content-end">
                                 <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editMedicalHistory(medical.id)"></i>
-                                <i class="icon-font ms-2 action-btn danger disabled" antIcon theme="outline" type="delete"></i>
+                                <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete" (click)="deleteMedicalHistory(medical)"></i>
                             </div>
                         </td>
                     </tr>

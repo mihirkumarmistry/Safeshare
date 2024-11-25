@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../../service/api.service';
+import { ApiStatus, KeyVal } from '../../../model/api.model';
 
 @Component({
   selector: 'app-appoinment-detail',
@@ -10,26 +12,30 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   styleUrl: './appoinment-detail.component.scss'
 })
 export class AppoinmentDetailComponent {
-  protected appoinmentId: number;
-  protected appoinmentForm: FormGroup;
+  protected appointmentId: number;
+  protected patientList: KeyVal[] = [];
+  protected doctorList: KeyVal[] = [];
+  protected appointmentForm: FormGroup;
 
   constructor(
     private router: Router, 
     protected fb: FormBuilder,
+    protected apiService: ApiService,
     private activeRoute: ActivatedRoute,
   ) {
     this.activeRoute.params.subscribe(d => {
-      this.appoinmentId = +d['id'];
+      this.appointmentId = +d['id'];
     })
   }
 
   ngOnInit(): void {
-    this.appoinmentForm = this.fb.group({
-      id: [null],
-      patientId: [''],
+    this.appointmentForm = this.fb.group({
+      id: [0],
+      patientId: [0],
       firstName: ['', [Validators.required]],
+      middleName: [''],
       lastName: ['', [Validators.required]],
-      dob: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       contact: ['', [Validators.required]],
       addressLine1: ['', [Validators.required]],
@@ -39,51 +45,85 @@ export class AppoinmentDetailComponent {
       country: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
 
-      type: ['', [Validators.required]],
-      appoinmentDate: ['', [Validators.required]],
-      appoinmentTime: ['', [Validators.required]],
+      appointmentType: ['', [Validators.required]],
+      appointmentDate: ['', [Validators.required]],
+      appointmentTime: ['', [Validators.required]],
       reason: ['', [Validators.required]],
 
-      doctorId: ['', [Validators.required]]
+      doctorId: [0, [Validators.required]]
     });
 
-    if (this.appoinmentId > 0) {
-      this.temp();
+    this.getPatientList();
+    this.getDoctorList();
+
+    if (this.appointmentId > 0) {
+      this.getAppointmentById();
     }
+  }
+
+  private getPatientList(): void {
+    this.apiService.getPatientList().subscribe((resp) => {
+      if (resp.status == ApiStatus.Success && resp.data.length) {
+        this.patientList = resp.data;
+      }
+    })
+  }
+
+  private getDoctorList(): void {
+    this.apiService.getDoctorList().subscribe((resp) => {
+      if (resp.status == ApiStatus.Success && resp.data.length) {
+        this.doctorList = resp.data;
+      }
+    })
+  }
+
+  protected getPatientInfo(event: any): void {
+    const data = this.appointmentForm.value;
+    if(data.patientId && data.patientId > 0){
+      this.apiService.getPatientById(data.patientId).subscribe((resp) => {
+        if(resp.status == ApiStatus.Success && resp.data.length)
+        {
+          debugger
+          const patient = resp.data[0];
+          this.appointmentForm.controls["firstName"].setValue(patient.firstName);
+          this.appointmentForm.controls["lastName"].setValue(patient.lastName);
+          this.appointmentForm.controls["dateOfBirth"].setValue(new Date(patient.dateOfBirth));
+          this.appointmentForm.controls["gender"].setValue(patient.gender);
+          this.appointmentForm.controls["contact"].setValue(patient.contact);
+          this.appointmentForm.controls["addressLine1"].setValue(patient.addressLine1);
+          this.appointmentForm.controls["addressLine2"].setValue(patient.addressLine2);
+          this.appointmentForm.controls["city"].setValue(patient.city);
+          this.appointmentForm.controls["state"].setValue(patient.state);
+          this.appointmentForm.controls["country"].setValue(patient.country);
+          this.appointmentForm.controls["zipCode"].setValue(patient.zipCode);
+        }
+       })
+    }
+  }
+
+  private getAppointmentById(): void {
+    this.apiService.getAppointmentById(this.appointmentId).subscribe((resp) => {
+      if (resp.status == ApiStatus.Success && resp.data.length) {
+        this.appointmentForm.patchValue(resp.data[0]);
+      }
+    })
   }
 
   // appoinment form
   protected onSubmit(): void {
-    console.log(this.appoinmentForm.value);
+    if(this.appointmentForm.valid) {
+      this.apiService.postAppointment(this.appointmentForm.value).subscribe((resp) => {
+        if (resp.status == ApiStatus.Success) {
+          this.router.navigate(['appointment']);
+          // Show Success toast
+        } else {
+          // Show Error toast
+        }
+      })
+    }
   }
 
   protected onCancel(): void {
     this.router.navigate(['/appointment']);
-  }
-
-  // teamp function
-  private temp(): void {
-    const data = {
-      id: 1,
-      patientId: 101,
-      firstName: "John",
-      lastName: "Doe",
-      dob: "1985-02-14",
-      gender: "male",
-      contact: "+1234567890",
-      addressLine1: "123 Main St",
-      addressLine2: "Apt 1A",
-      city: "New York",
-      state: "NY",
-      country: "USA",
-      zipCode: "10001",
-      type: "New Consultation",
-      appoinmentDate: "2024-11-15",
-      appoinmentTime: "2024-11-15T10:30:00",
-      reason: "General Checkup",
-      doctorId: 201
-  };
-
-    this.appoinmentForm.patchValue(data);
   }
 }

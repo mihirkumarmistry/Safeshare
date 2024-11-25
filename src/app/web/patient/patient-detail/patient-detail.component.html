@@ -52,11 +52,11 @@
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="dob">Date Of Birth *</label>
-                <input id="dob" type="date" formControlName="dob" placeholder="Select date of birth"
+                <input id="dob" type="date" formControlName="dateOfBirth" placeholder="Select date of birth"
                     class="form-control" />
                 <div>
-                    @if (patientForm.get('dob').invalid && patientForm.get('dob').touched) {
-                    @if (patientForm.get('dob').errors['required']) {
+                    @if (patientForm.get('dateOfBirth').invalid && patientForm.get('dateOfBirth').touched) {
+                    @if (patientForm.get('dateOfBirth').errors['required']) {
                     <small class="text-danger">Date Of Birth is required.</small>
                     }
                     }
@@ -191,11 +191,11 @@
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="contactName">Contact Person Name *</label>
-                <input id="contactName" type="text" formControlName="contactName"
+                <input id="contactName" type="text" formControlName="contactPersonName"
                     placeholder="Enter contact person name" class="form-control" />
                 <div>
-                    @if (patientForm.get('contactName').invalid && patientForm.get('contactName').touched) {
-                    @if (patientForm.get('contactName').errors['required']) {
+                    @if (patientForm.get('contactPersonName').invalid && patientForm.get('contactPersonName').touched) {
+                    @if (patientForm.get('contactPersonName').errors['required']) {
                     <small class="text-danger">Contact Person Name is required.</small>
                     }
                     }
@@ -227,7 +227,7 @@
         <div class="col-md-6">
             <div class="form-group mb-3">
                 <label class="form-label" for="providerName">Provider Name</label>
-                <input id="providerName" type="text" formControlName="providerName"
+                <input id="providerName" type="text" formControlName="insuranceProviderName"
                     placeholder="Enter provider name" class="form-control" />
             </div>
         </div>

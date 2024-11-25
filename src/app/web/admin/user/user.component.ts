@@ -7,6 +7,9 @@ import { IconService } from '@ant-design/icons-angular';
 import { DeleteOutline, EditOutline, EyeOutline, PlusOutline } from '@ant-design/icons-angular/icons';
 import tableData from '../../../../fake-data/user-data.json';
 import { Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../../service/api.service';
+import { ApiStatus } from '../../../model/api.model';
+import { User } from '../../../model/user.model';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +19,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
-  userList = tableData;
+  userList: User[] = [];
   pageSize = 10;
   pageStart = 0;
   pageEnd = 10;
@@ -24,7 +27,8 @@ export class UserComponent {
 
   constructor (
     private router: Router,
-    private iconService: IconService
+    private apiService: ApiService,
+    private iconService: IconService,
   ) {
     this.iconService.addIcon(...[
       EyeOutline,
@@ -32,6 +36,16 @@ export class UserComponent {
       DeleteOutline,
       PlusOutline,
     ]);
+    this.getUsers();
+  }
+
+  protected getUsers(): void {
+    this.apiService.getUsers().subscribe((resp) => {
+      if (resp.status == ApiStatus.Success) 
+      {
+        this.userList = resp.data;
+      }
+    }); 
   }
 
   // patient crud

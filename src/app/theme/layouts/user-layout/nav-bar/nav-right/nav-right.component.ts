@@ -1,5 +1,5 @@
 // angular import
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 // project import
@@ -28,6 +28,7 @@ import {
   ArrowRightOutline,
   GithubOutline
 } from '@ant-design/icons-angular/icons';
+import { AuthService } from '../../../../../core/auth.service';
 
 @Component({
   selector: 'app-nav-right',
@@ -36,36 +37,12 @@ import {
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss']
 })
-export class NavRightComponent {
+export class NavRightComponent implements OnInit {
   @Input() styleSelectorToggle!: boolean;
   @Output() Customize = new EventEmitter();
   windowWidth: number;
   screenFull: boolean = true;
-
-  constructor(private iconService: IconService) {
-    this.windowWidth = window.innerWidth;
-    this.iconService.addIcon(
-      ...[
-        CheckCircleOutline,
-        GiftOutline,
-        MessageOutline,
-        SettingOutline,
-        PhoneOutline,
-        LogoutOutline,
-        UserOutline,
-        EditOutline,
-        ProfileOutline,
-        QuestionCircleOutline,
-        LockOutline,
-        CommentOutline,
-        UnorderedListOutline,
-        ArrowRightOutline,
-        BellOutline,
-        GithubOutline,
-        WalletOutline
-      ]
-    );
-  }
+  username: string;
 
   profile = [
     {
@@ -108,4 +85,37 @@ export class NavRightComponent {
       title: 'History'
     }
   ];
+
+  constructor(private iconService: IconService, private authService: AuthService) {
+    this.windowWidth = window.innerWidth;
+    this.iconService.addIcon(
+      ...[
+        CheckCircleOutline,
+        GiftOutline,
+        MessageOutline,
+        SettingOutline,
+        PhoneOutline,
+        LogoutOutline,
+        UserOutline,
+        EditOutline,
+        ProfileOutline,
+        QuestionCircleOutline,
+        LockOutline,
+        CommentOutline,
+        UnorderedListOutline,
+        ArrowRightOutline,
+        BellOutline,
+        GithubOutline,
+        WalletOutline
+      ]
+    );
+  }
+
+  ngOnInit(): void {
+    this.username = this.authService.getUserName();
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

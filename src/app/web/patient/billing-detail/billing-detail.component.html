@@ -15,10 +15,15 @@
             </div>
         </div>
         <div class="col-md-6">
+
             <div class="form-group mb-3">
                 <label class="form-label" for="patientId">Select Patient *</label>
-                <input id="patientId" type="text" formControlName="patientId" placeholder="Select Patient"
-                    class="form-control" />
+                <select class="form-select" formControlName="patientId" placeholder="Select Patient">
+                    <option value="">- Select -</option>
+                    @for (item of patientList; track item) {
+                    <option [value]="item.value">{{item.key}}</option>
+                    }
+                </select>
                 <div>
                     @if (billingForm.get('patientId').invalid && billingForm.get('patientId').touched) {
                     @if (billingForm.get('patientId').errors['required']) {
@@ -31,8 +36,12 @@
         <div class="col-md-6">
             <div class="form-group mb-3">
                 <label class="form-label" for="appoinmentId">Select Appointment *</label>
-                <input id="appoinmentId" type="text" formControlName="appoinmentId" placeholder="Select appointment"
-                    class="form-control" />
+                <select class="form-select" formControlName="appoinmentId" placeholder="Select Appointment">
+                    <option value="">- Select -</option>
+                    @for (item of appointmentList; track item) {
+                    <option [value]="item.value">{{item.key}}</option>
+                    }
+                </select>
                 <div>
                     @if (billingForm.get('appoinmentId').invalid && billingForm.get('appoinmentId').touched) {
                     @if (billingForm.get('appoinmentId').errors['required']) {
@@ -50,7 +59,21 @@
                 <hr>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="name">Billing Title *</label>
+                <input id="name" type="text" formControlName="name" placeholder="Enter Billing Name"
+                    class="form-control" />
+                <div>
+                    @if (billingForm.get('name').invalid && billingForm.get('name').touched) {
+                    @if (billingForm.get('name').errors['required']) {
+                    <small class="text-danger">Billing name is required.</small>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="billingDate">Billing Date *</label>
                 <input id="billingDate" type="date" formControlName="billingDate" placeholder="Select Billing Date"
@@ -64,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="billingDueDate">Billing Due Date *</label>
                 <input id="billingDueDate" type="date" formControlName="billingDueDate"
@@ -79,7 +102,7 @@
             </div>
         </div>
 
-        <div formArrayName="breakdown">
+        <div formArrayName="breaskdowns">
             <div class="card tbl-card">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -92,7 +115,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for(breakdownItem of breakdown.controls; track breakdownItem; let i = $index){
+                            @for(breakdownItem of breaskdowns.controls; track breakdownItem; let i = $index){
                             <tr [formGroupName]="i">
                                 <td>
                                     <div class="form-group mb-3">
@@ -109,7 +132,7 @@
                                 <td>
                                     <div class="form-group mb-3">
                                         <input type="number" formControlName="amount" placeholder="Enter amount"
-                                            class="form-control" />
+                                            class="form-control" (change)="billCalculation()" />
                                     </div>
                                 </td>
                                 <td class="text-end py-2">
@@ -141,17 +164,40 @@
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="totalAmount">Total Amount</label>
-                <input id="totalAmount" type="number" formControlName="totalAmount" class="form-control" [disabled]="true"/>
+                <input id="totalAmount" type="number" formControlName="totalAmount" class="form-control" readonly/>
             </div>
         </div>
         <div class="col-md-8"></div>
         <div class="col-md-4">
             <div class="form-group mb-3">
+                <label class="form-label" for="discount">Discount</label>
+                <input id="discount" type="number" formControlName="discount" class="form-control" (change)="billCalculation()"/>
+            </div>
+        </div>
+
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="insuranceCoverageAmount">Insurance Coverage Amount</label>
+                <input id="insuranceCoverageAmount" type="number" formControlName="insuranceCoverageAmount" placeholder="Enter insurance coverage amount" class="form-control" (change)="billCalculation()"/>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
+                <label class="form-label" for="insuranceNumber">Insurance Number</label>
+                <input id="insuranceNumber" type="text" formControlName="insuranceNumber" placeholder="Enter insurance number" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="form-group mb-3">
                 <label class="form-label" for="tax">Tax % *</label>
-                <input id="tax" type="number" formControlName="tax" placeholder="Enter tax %" class="form-control"/>
+                <input id="tax" type="number" formControlName="taxPercentage" placeholder="Enter tax %" class="form-control" (change)="billCalculation()"/>
                 <div>
-                    @if (billingForm.get('tax').invalid && billingForm.get('tax').touched) {
-                    @if (billingForm.get('tax').errors['required']) {
+                    @if (billingForm.get('taxPercentage').invalid && billingForm.get('taxPercentage').touched) {
+                    @if (billingForm.get('taxPercentage').errors['required']) {
                     <small class="text-danger">Tax percentage is required.</small>
                     }
                     }
@@ -162,38 +208,17 @@
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="taxAmount">Tax amount *</label>
-                <input id="taxAmount" type="number" formControlName="taxAmount" class="form-control" [disabled]="true"/>
+                <input id="taxAmount" type="number" formControlName="taxAmount" class="form-control" readonly/>
             </div>
         </div>
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-            <div class="form-group mb-3">
-                <label class="form-label" for="discounts">Discounts</label>
-                <input id="discounts" type="number" formControlName="discounts" class="form-control"/>
-            </div>
-        </div>
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-            <div class="form-group mb-3">
-                <label class="form-label" for="insuranceCoverageAmount">Insurance Coverage Amount</label>
-                <input id="insuranceCoverageAmount" type="number" formControlName="insuranceCoverageAmount" placeholder="Enter insurance coverage amount" class="form-control"/>
-            </div>
-        </div>
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-            <div class="form-group mb-3">
-                <label class="form-label" for="insuranceNumber">Insurance Number</label>
-                <input id="insuranceNumber" type="text" formControlName="insuranceNumber" placeholder="Enter insurance number" class="form-control"/>
-            </div>
-        </div>
+
         <div class="col-md-8"></div>
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="finalBillAmount">Final Bill Amount</label>
-                <input id="finalBillAmount" type="text" formControlName="finalBillAmount" class="form-control" [disabled]="true"/>
+                <input id="finalBillAmount" type="text" formControlName="finalBillAmount" class="form-control" readonly/>
             </div>
         </div>
-
         <!-- Payment Details -->
         <div class="col-md-12">
             <div class="form-section">
@@ -204,7 +229,7 @@
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="paymentDate">Payment Date</label>
-                <input id="paymentDate" type="text" formControlName="paymentDate" placeholder="Select payment date"
+                <input id="paymentDate" type="date" formControlName="paymentDate" placeholder="Select payment date"
                     class="form-control" />
             </div>
         </div>
@@ -238,7 +263,7 @@
         </div>
         <div class="col-md-4">
             <div class="form-group mb-3">
-                <label class="form-label" for="paymentStatus">Payment Status</label>
+                <label class="form-label" for="paymentStatus">Payment Status *</label>
                 <input id="paymentStatus" type="text" formControlName="paymentStatus"
                     placeholder="Select Payment Status" class="form-control" />
             </div>

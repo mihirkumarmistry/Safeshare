@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,19 +13,18 @@ import { Router, RouterModule } from '@angular/router';
 export default class LoginComponent implements OnInit {
   protected loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Form Submitted!', this.loginForm.value);
-      this.router.navigate(['/dashboard']);
+      this.authService.login(this.loginForm.value);
     }
   }
 }
