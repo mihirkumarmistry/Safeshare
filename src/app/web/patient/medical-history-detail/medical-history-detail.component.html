@@ -15,10 +15,15 @@
             </div>
         </div>
         <div class="col-md-6">
+
             <div class="form-group mb-3">
                 <label class="form-label" for="patientId">Select Patient *</label>
-                <input id="patientId" type="text" formControlName="patientId" placeholder="Select Patient"
-                    class="form-control" />
+                <select class="form-select" formControlName="patientId" placeholder="Select Patient">
+                    <option value="">- Select -</option>
+                    @for (item of patientList; track item) {
+                    <option [value]="item.value">{{item.key}}</option>
+                    }
+                </select>
                 <div>
                     @if (medicalHistoryForm.get('patientId').invalid && medicalHistoryForm.get('patientId').touched) {
                     @if (medicalHistoryForm.get('patientId').errors['required']) {
@@ -30,382 +35,24 @@
         </div>
         <div class="col-md-6">
             <div class="form-group mb-3">
-                <label class="form-label" for="appoinmentId">Select Appointment *</label>
-                <input id="appoinmentId" type="text" formControlName="appoinmentId" placeholder="Select appointment"
+                <label class="form-label" for="appoinmentId">Title</label>
+                <input id="appoinmentId" type="text" formControlName="title" placeholder="Enter title"
                     class="form-control" />
                 <div>
-                    @if (medicalHistoryForm.get('appoinmentId').invalid &&
-                    medicalHistoryForm.get('appoinmentId').touched) {
-                    @if (medicalHistoryForm.get('appoinmentId').errors['required']) {
-                    <small class="text-danger">Appoinment is required.</small>
+                    @if (medicalHistoryForm.get('title').invalid &&
+                    medicalHistoryForm.get('title').touched) {
+                    @if (medicalHistoryForm.get('title').errors['required']) {
+                    <small class="text-danger">Title is required.</small>
                     }
                     }
                 </div>
             </div>
         </div>
-
-        <!-- Allergies Details -->
         <div class="col-md-12">
-            <div class="form-section">
-                <span>Allergies Details</span>
-                <hr>
-            </div>
-        </div>
-
-        <div formArrayName="allergies">
-            <div class="card tbl-card">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>ALLERGIE NAME *</th>
-                                <th>DETAIL *</th>
-                                <th class="text-end">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(allergieItem of allergies.controls; track allergieItem; let i = $index){
-                            <tr [formGroupName]="i">
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="key" placeholder="Enter allergie name"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="value" placeholder="Enter detail"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-
-                                <td class="text-end py-2">
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-danger"
-                                            (click)="removeAllergie(i)">Remove</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary" (click)="addAllergie()">Add
-                                            Allergie</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Previous Medical Conditions -->
-        <div class="col-md-12">
-            <div class="form-section">
-                <span>Previous Medical Conditions</span>
-                <hr>
-            </div>
-        </div>
-
-        <div formArrayName="previousMedicalConditions">
-            <div class="card tbl-card">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>MEDICAL CONDITION *</th>
-                                <th>DETAIL *</th>
-                                <th class="text-end">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(previousMedicalConditionsItem of previousMedicalConditions.controls; track
-                            previousMedicalConditionsItem; let i = $index){
-                            <tr [formGroupName]="i">
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="key" placeholder="Enter medical condition"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="value" placeholder="Enter detail"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-
-                                <td class="text-end py-2">
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-danger"
-                                            (click)="removePreviousMedicalCondition(i)">Remove</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary"
-                                            (click)="addPreviousMedicalCondition()">Add
-                                            Medical Condition</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Medication Details -->
-        <div class="col-md-12">
-            <div class="form-section">
-                <span>Medication Details</span>
-                <hr>
-            </div>
-        </div>
-
-        <div formArrayName="medications">
-            <div class="card tbl-card">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>NAME *</th>
-                                <th>DOSAGE *</th>
-                                <th>FREQUENCY *</th>
-                                <th>CURRENT *</th>
-                                <th class="text-end">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(medicationItem of medications.controls; track medicationItem; let i = $index){
-                            <tr [formGroupName]="i">
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="name" placeholder="Enter name"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="dosage" placeholder="Enter dosage"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="frequency" placeholder="Enter frequency"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" formControlName="isCurrent" type="checkbox">
-                                    </div>
-                                </td>
-
-                                <td class="text-end py-2">
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-danger"
-                                            (click)="removePreviousMedicalCondition(i)">Remove</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary"
-                                            (click)="addPreviousMedicalCondition()">Add
-                                            Medical Condition</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Surgical History -->
-        <div class="col-md-12">
-            <div class="form-section">
-                <span>Surgical History</span>
-                <hr>
-            </div>
-        </div>
-
-        <div formArrayName="surgicalHistory">
-            <div class="card tbl-card">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>PROCEDURE NAME *</th>
-                                <th>PROCEDURE DATE *</th>
-                                <th>DOCTOR NAME *</th>
-                                <th>HOSPITAL NAME *</th>
-                                <th class="text-end">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(surgicalHistoryItem of surgicalHistory.controls; track surgicalHistoryItem; let i = $index){
-                            <tr [formGroupName]="i">
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="procedureName" placeholder="Enter procedure name"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="date" formControlName="procedureDate" placeholder="Enter procedure date"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="doctorName" placeholder="Enter doctor name"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="hospitalName" placeholder="Enter hospital name"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-
-                                <td class="text-end py-2">
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-danger"
-                                            (click)="removeSurgicalHistory(i)">Remove</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary"
-                                            (click)="addSurgicalHistory()">Add Surgical History</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Diagnostic Test  Detail -->
-        <div class="col-md-12">
-            <div class="form-section">
-                <span>Diagnostic Test  Detail</span>
-                <hr>
-            </div>
-        </div>
-
-        <div formArrayName="diagnosticTest">
-            <div class="card tbl-card">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>LAB TEST NAME *</th>
-                                <th>LAB TEST DATE *</th>
-                                <th>RESULT *</th>
-                                <th>IMAGE *</th>
-                                <th>IMAGE FINDINNGS *</th>
-                                <th class="text-end">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for(diagnosticTestItem of diagnosticTest.controls; track diagnosticTestItem; let i = $index){
-                            <tr [formGroupName]="i">
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="labTestName" placeholder="Enter lab test name"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="date" formControlName="labTestDate" placeholder="Enter lab test date"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="result" placeholder="Enter result"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="file" formControlName="image" placeholder="Upload test image"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-3">
-                                        <input type="text" formControlName="imageFindings" placeholder="Enter image findings"
-                                            class="form-control" />
-                                    </div>
-                                </td>
-
-                                <td class="text-end py-2">
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-danger"
-                                            (click)="removeDiagnosticTest(i)">Remove</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary"
-                                            (click)="addDiagnosticTest()">Add Diagnostic</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+            <div class="form-group mb-3">
+                <label class="form-label" for="detail">Detail</label>
+                <input id="detail" type="text" formControlName="detail" placeholder="Enter detail"
+                    class="form-control" />
             </div>
         </div>
 
@@ -417,5 +64,427 @@
                     'Save' : 'Update'}}</button>
             </div>
         </div>
+
+        @if(medicalHistoryId > 0) {
+        <!-- Allergies Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Allergies Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="card tbl-card">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>ALLERGIE NAME *</th>
+                            <th>DETAIL *</th>
+                            <th class="text-end">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of allergiesList; track item) {
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
+                            <td class="text-end py-2">
+                                <div class="d-flex justify-content-end">
+                                    <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit"
+                                        (click)="openAllergie(allergie, item)"></i>
+                                    <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete"
+                                        (click)="deleteAllergie(item)"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="openAllergie(allergie, null)">Add
+                                        Allergie</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Previous Medical Condition -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Previous Medical Condition</span>
+                <hr>
+            </div>
+        </div>
+        <div class="card tbl-card">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>MEDICAL CONDITION *</th>
+                            <th>DETAIL *</th>
+                            <th class="text-end">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of previousMedicalConditionsList; track item) {
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
+                            <td class="text-end py-2">
+                                <div class="d-flex justify-content-end">
+                                    <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit"
+                                        (click)="openPreviousMedicalCondition(previousMedicalCondition, item)"></i>
+                                    <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete"
+                                        (click)="deletePreviousMedicalCondition(item)"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="openPreviousMedicalCondition(previousMedicalCondition, null)">Add
+                                        Medical Condition</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Medication Details -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Medication Details</span>
+                <hr>
+            </div>
+        </div>
+        <div class="card tbl-card">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>NAME *</th>
+                            <th>DOSAGE *</th>
+                            <th>Frequency *</th>
+                            <th>CURRENT *</th>
+                            <th class="text-end">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of medicationsList; track item) {
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>{{item.dosage}}</td>
+                            <td>{{item.frequency}}</td>
+                            <td>{{item.isCurrent}}</td>
+                            <td class="text-end py-2">
+                                <div class="d-flex justify-content-end">
+                                    <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit"
+                                        (click)="openMedication(medication, item)"></i>
+                                    <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete"
+                                        (click)="deleteMedication(item)"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="openMedication(medication, null)">Add
+                                        Medication</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Surgical History -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Surgical History</span>
+                <hr>
+            </div>
+        </div>
+        <div class="card tbl-card">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>NAME *</th>
+                            <th>DATE *</th>
+                            <th>DOCTOR NAME *</th>
+                            <th>HOSPITAL NAME *</th>
+                            <th class="text-end">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of surgicalHistoryList; track item) {
+                        <tr>
+                            <td>{{item.proceduresName}}</td>
+                            <td>{{item.proceduresDate | date: 'MM-dd-yyyy'}}</td>
+                            <td>{{item.doctorName}}</td>
+                            <td>{{item.hospitalName}}</td>
+                            <td class="text-end py-2">
+                                <div class="d-flex justify-content-end">
+                                    <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit"
+                                        (click)="openSurgicalHistory(surgicalHistory, item)"></i>
+                                    <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete"
+                                        (click)="deleteSurgicalHistory(item)"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="openSurgicalHistory(surgicalHistory, null)">Add
+                                        Surgical History</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Diagnostic Test  Detail -->
+        <div class="col-md-12">
+            <div class="form-section">
+                <span>Diagnostic Test Detail</span>
+                <hr>
+            </div>
+        </div>
+        <div class="card tbl-card">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>TEST NAME *</th>
+                            <th>TEST DATE *</th>
+                            <th>RESULT *</th>
+                            <th>IMAGE *</th>
+                            <th>IMAGE FINDINGS *</th>
+                            <th class="text-end">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of diagnosticTestList; track item) {
+                        <tr>
+                            <td>{{item.labTestName}}</td>
+                            <td>{{item.labTestDate | date: 'MM-dd-yyyy'}}</td>
+                            <td>{{item.result}}</td>
+                            <td>{{item.image}}</td>
+                            <td>{{item.imageFindings}}</td>
+                            <td class="text-end py-2">
+                                <div class="d-flex justify-content-end">
+                                    <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit"
+                                        (click)="openDiagnosticTest(diagnosticTest, item)"></i>
+                                    <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete"
+                                        (click)="deleteDiagnosticTest(item)"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="openDiagnosticTest(diagnosticTest, null)">Add Diagnostic Test</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        }
+
     </div>
 </form>
+
+<ng-template #allergie let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Allergie Detail</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form [formGroup]="allergieForm" (ngSubmit)="saveAllergies()">
+        <div class="modal-body">
+            <div class="form-group mb-3">
+                <label>Allergie name</label>
+                <input type="text" formControlName="name" placeholder="Enter allergie name" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Allergie detail</label>
+                <input type="text" formControlName="description" placeholder="Enter description" class="form-control" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('close')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #previousMedicalCondition let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Previous Medical Condition</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form [formGroup]="previousMedicalConditionsForm" (ngSubmit)="savePreviousMedicalCondition()">
+        <div class="modal-body">
+            <div class="form-group mb-3">
+                <label>Medical condition</label>
+                <input type="text" formControlName="name" placeholder="Enter previous medical condition"
+                    class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Medical condition detail</label>
+                <input type="text" formControlName="description" placeholder="Enter description" class="form-control" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('close')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #medication let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Medication</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form [formGroup]="medicationsForm" (ngSubmit)="saveMedication()">
+        <div class="modal-body">
+            <div class="form-group mb-3">
+                <label>Name</label>
+                <input type="text" formControlName="name" placeholder="Enter medication name" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Dosage</label>
+                <input type="text" formControlName="dosage" placeholder="Enter dosage" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Frequency</label>
+                <input type="text" formControlName="frequency" placeholder="Enter frequency" class="form-control" />
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input input-primary" formControlName="isCurrent" type="checkbox"
+                    id="customCheckc1" checked="" />
+                <label class="form-check-label text-muted" for="customCheckc1">Is Current</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('close')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #surgicalHistory let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Surgical History</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form [formGroup]="surgicalHistoryForm" (ngSubmit)="saveSurgicalHistory()">
+        <div class="modal-body">
+            <div class="form-group mb-3">
+                <label>Procedures Name</label>
+                <input type="text" formControlName="proceduresName" placeholder="Enter procedures name"
+                    class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Procedures Date</label>
+                <input type="date" formControlName="proceduresDate" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Doctor Name</label>
+                <input type="text" formControlName="doctorName" placeholder="Enter doctor name" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Hospital Name</label>
+                <input type="text" formControlName="hospitalName" placeholder="Enter hospital name"
+                    class="form-control" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('close')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #diagnosticTest let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Diagnostic Test</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form [formGroup]="diagnosticTestForm" (ngSubmit)="saveDiagnosticTest()">
+        <div class="modal-body">
+            <div class="form-group mb-3">
+                <label>Lab Test Name</label>
+                <input type="text" formControlName="labTestName" placeholder="Enter lab test name"
+                    class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Lab Test Date</label>
+                <input type="date" formControlName="labTestDate" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Result</label>
+                <input type="text" formControlName="result" placeholder="Enter result" class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Image</label>
+                <input type="text" formControlName="image" placeholder="Upload image"
+                class="form-control" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Image Findings</label>
+                <input type="text" formControlName="imageFindings" placeholder="Enter image findings" class="form-control" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('close')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</ng-template>

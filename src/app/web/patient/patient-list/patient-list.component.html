@@ -28,12 +28,12 @@
                         <td>{{ patient.firstName }}</td>
                         <td>{{ patient.lastName }}</td>
                         <td>{{ patient.gender }}</td>
-                        <td>{{ patient.dob }}</td>
+                        <td>{{ patient.dateOfBirth | date: 'MM-dd-yyyy' }}</td>
                         <td>{{ patient.contact }}</td>
                         <td class="text-end py-2">
                             <div class="d-flex justify-content-end">
                                 <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editPatent(patient.id)"></i>
-                                <i class="icon-font ms-2 action-btn danger disabled" antIcon theme="outline" type="delete"></i>
+                                <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete" (click)="deletePatient(patient)"></i>
                             </div>
                         </td>
                     </tr>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../../service/api.service';
+import { ApiStatus } from '../../../model/api.model';
 
 @Component({
   selector: 'app-user-detail',
@@ -16,6 +18,7 @@ export class UserDetailComponent {
   constructor(
     private router: Router,
     protected fb: FormBuilder,
+    private apiService: ApiService,
     private activeRoute: ActivatedRoute,
   ) {
     this.activeRoute.params.subscribe(d => {
@@ -28,38 +31,40 @@ export class UserDetailComponent {
       id: [null],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      type: ['', [Validators.required]],
+      userTypeId: ['', [Validators.required]],
       isActive: [false, [Validators.required]],
     });
 
     if (this.userId > 0) {
-      this.temp();
+      this.getUser();
     }
   }
 
   // user form
   protected onSubmit(): void {
-    console.log(this.userForm.value);
+    if (this.userForm.valid) {
+      this.apiService.postUsers(this.userForm.value).subscribe(resp => {
+        if (resp.status == ApiStatus.Success) {
+          this.router.navigate(['/user']);
+          // Show Success
+        } else {
+          // Show error
+        }
+      });
+    }
   }
 
   protected onCancel(): void {
     this.router.navigate(['/user']);
   }
 
-  // teamp function
-  private temp(): void {
-    const data = {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      email: "johndoe@example.com",
-      password: "password123",
-      type: "Admin",
-      isActive: true
-    };
-
-    this.userForm.patchValue(data);
+  private getUser(): void {
+    this.apiService.getUsersById(this.userId).subscribe((resp) => {
+      if (resp.status == ApiStatus.Success && resp.data.length) {
+        this.userForm.patchValue(resp.data[0]);
+      }
+    })
   }
 }

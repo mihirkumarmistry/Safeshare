@@ -28,6 +28,8 @@ import {
   PlusCircleOutline,
   PlusOutline,
 } from '@ant-design/icons-angular/icons';
+import { AuthService } from '../../../../../core/auth.service';
+import { SystemUserType } from '../../../../../app.routes';
 
 @Component({
   selector: 'app-nav-content',
@@ -53,7 +55,8 @@ export class NavContentComponent implements OnInit, AfterViewInit {
   constructor(
     private location: Location,
     private locationStrategy: LocationStrategy,
-    private iconService: IconService
+    private iconService: IconService,
+    private authService: AuthService
   ) {
     this.iconService.addIcon(
       ...[
@@ -73,10 +76,18 @@ export class NavContentComponent implements OnInit, AfterViewInit {
       ]
     );
     this.navigations = NavigationItems;
+    this.authService._loginSubject.subscribe((resp) => {
+      if(resp) {
+        this.processNavs();
+        console.log('processNav');
+      }
+    });
   }
 
   // Life cycle events
-  ngOnInit() {}
+  ngOnInit() {
+    this.processNavs();
+  }
 
   ngAfterViewInit() {
     if (this.windowWidth < 1025) {
@@ -113,5 +124,20 @@ export class NavContentComponent implements OnInit, AfterViewInit {
     if (this.windowWidth < 1025 && document.querySelector('app-navigation.coded-navbar').classList.contains('mob-open')) {
       this.NavCollapsedMob.emit();
     }
+  }
+
+  processNavs(): void {
+    const userType = this.authService.getUserType();
+    this.navigations.forEach(d => {
+      if (d.isAdminOnly) {
+        d.hidden = (userType != SystemUserType.Admin);
+      }
+
+      d.children.forEach(c => {
+        if (c.isAdminOnly) {
+          c.hidden = (userType != SystemUserType.Admin);
+        }
+      })
+    })
   }
 }

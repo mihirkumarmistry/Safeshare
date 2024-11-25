@@ -27,13 +27,16 @@
                         </td>
                         <td>{{ user.firstName }}</td>
                         <td>{{ user.lastName }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.type }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.userType.name }}</td>
                         <td>{{ user.isActive }}</td>
                         <td class="text-end py-2">
                             <div class="d-flex justify-content-end">
                                 <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editPatent(user.id)"></i>
-                                <i class="icon-font ms-2 action-btn danger disabled" antIcon theme="outline" type="delete"></i>
+                                @if(user.userType.name != 'Admin')
+                                {
+                                    <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete"></i>
+                                }
                             </div>
                         </td>
                     </tr>

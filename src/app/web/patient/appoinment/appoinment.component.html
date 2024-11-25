@@ -26,16 +26,16 @@
                         <td>
                             <a href="javascript:" class="text-muted">{{ appoinment.id }}</a>
                         </td>
-                        <td>{{ appoinment.patientId }}</td>
-                        <td>{{ appoinment.doctorId }}</td>
-                        <td>{{ appoinment.type }}</td>
-                        <td>{{ appoinment.appoinmentDate }}</td>
-                        <td>{{ appoinment.appoinmentTime }}</td>
-                        <td>{{ appoinment.reason }}</td>
+                        <td>{{ appoinment.firstName }} {{ appoinment.lastName }}</td>
+                        <td>{{ appoinment.doctorName }}</td>
+                        <td>{{ appoinment.appointmentType }}</td>
+                        <td>{{ appoinment.appointmentDate | date: 'MM-dd-yyy'}}</td>
+                        <td>{{ appoinment.appointmentTime | date: 'HH:mm'}}</td>
+                        <td>{{ appoinment.contact }}</td>
                         <td class="text-end py-2">
                             <div class="d-flex justify-content-end">
                                 <i class="icon-font ms-2 action-btn" antIcon theme="outline" type="edit" (click)="editAppoinment(appoinment.id)"></i>
-                                <i class="icon-font ms-2 action-btn danger disabled" antIcon theme="outline" type="delete"></i>
+                                <i class="icon-font ms-2 action-btn danger" antIcon theme="outline" type="delete" (click)="deleteAppointment(appoinment)"></i>
                             </div>
                         </td>
                     </tr>

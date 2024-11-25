@@ -1,28 +1,27 @@
 export class Medicalhistory {
     id: number;
     patientId: number;
-    appoinemntId: number;
-    allergies: MedicalKeyVal[]; 
-    previousMedicalConditions: MedicalKeyVal[]; // hypertension, diabetes
-    medications: Medications[];
-    surgicalHistory: SurgicalHistory[]; 
-    diagnosticTest: DiagnosticTest[];
+    title: string;
+    detail: string;
+    patientName: string;
+    allergies?: MedicalKeyVal[]; 
+    previousMedicalConditions?: MedicalKeyVal[]; // hypertension, diabetes
+    medications?: Medications[];
+    surgicalHistory?: SurgicalHistory[]; 
+    diagnosticTest?: DiagnosticTest[];
 }
 
 export class Medications {
     id: number;
-    patientId: number;
-    appoinmentId: number;
     medicalHistoryId: number;
     name: string;
     dosage: string;
     frequency: string;
-    isCurrent: string;
+    isCurrent: boolean;
 }
 
 export class SurgicalHistory {
     id: number;
-    patientId: number;
     medicalHistoryId: number;
     proceduresName: string;
     proceduresDate: string;
@@ -32,7 +31,6 @@ export class SurgicalHistory {
 
 export class DiagnosticTest {
     id: number;
-    patientId: number;
     medicalHistoryId: number;
     labTestName: string;
     labTestDate: Date;
@@ -43,8 +41,7 @@ export class DiagnosticTest {
 
 export class MedicalKeyVal {
     id: number;
-    patientId: number; 
     medicalHistoryId: number;
-    key: string;
-    value: string;
+    name: string;
+    description: string;
 }

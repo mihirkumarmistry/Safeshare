@@ -4,6 +4,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IconService } from '@ant-design/icons-angular';
 import { DeleteOutline } from '@ant-design/icons-angular/icons';
 import { SharedModule } from '../../../theme/shared/shared.module';
+import { ApiService } from '../../../service/api.service';
+import { ApiStatus, KeyVal } from '../../../model/api.model';
 
 @Component({
   selector: 'app-billing-detail',
@@ -14,11 +16,14 @@ import { SharedModule } from '../../../theme/shared/shared.module';
 })
 export class BillingDetailComponent {
   protected billId: number;
+  protected patientList: KeyVal[] = [];
+  protected appointmentList: KeyVal[] = [];
   protected billingForm: FormGroup;
 
   constructor(
     private router: Router,
     protected fb: FormBuilder,
+    protected apiService: ApiService,
     private iconService: IconService,
     private activeRoute: ActivatedRoute,
   ) {
@@ -33,48 +38,78 @@ export class BillingDetailComponent {
 
   ngOnInit(): void {
     this.billingForm = this.fb.group({
-      id: [null],
+      id: [0],
 
       // Patient details
+      name: ['', Validators.required],
       patientId: [null, Validators.required],
-      appoinmentId: [null, Validators.required],
+      appoinmentId: [null],
 
       // Billing info
       billingDate: [null, Validators.required],
       billingDueDate: [null, Validators.required],
-      breakdown: this.fb.array([this.createBreakdownGroup()]),
+      breaskdowns: this.fb.array([this.createBreakdownGroup()]),
       totalAmount: [0, Validators.required],
       insuranceCoverageAmount: [0, Validators.required],
-      insuranceNumber: ['', Validators.required],
-      tax: [0, Validators.required],
+      insuranceNumber: [''],
+      taxPercentage: [0, Validators.required],
       taxAmount: [0, Validators.required],
-      discounts: [0],
+      discount: [0],
       finalBillAmount: [0, Validators.required],
 
       // Payment info
       paymentId: [''],
-      paymentDate: [null],
+      paymentDate: [new Date()],
       paymentMode: [''],
-      amountPaid: [0, Validators.required],
+      amountPaid: [0],
       transactionId: [''],
       balanceDue: [0],
-      paymentStatus: ['', Validators.required],
-      createdBy: [null, Validators.required],
-      createdDate: [null],
-      updatedBy: [null],
-      updatedDate: [null]
+      paymentStatus: ['Pending', Validators.required]
     });
 
+    this.getPatientList(); 
+    this.getAppointmentList(); 
+
     if (this.billId > 0) {
-      this.temp();
+      this.getBillById();
     }
   }
+
+  private getPatientList(): void {
+    this.apiService.getPatientList().subscribe((resp) => {
+      if (resp.status == ApiStatus.Success && resp.data.length) {
+        this.patientList = resp.data;
+      }
+    })
+  }
+
+  private getAppointmentList(): void {
+    this.apiService.getAppointmentList().subscribe((resp) => {
+      if (resp.status == ApiStatus.Success && resp.data.length) {
+        this.appointmentList = resp.data;
+      }
+    })
+  }
+
+  private getBillById(): void {
+    this.apiService.getBillById(this.billId).subscribe((resp) => {
+      if (resp.status == ApiStatus.Success && resp.data.length) {
+        resp.data[0].breaskdowns.forEach((item, index) => {
+          if(index != 0) {
+            this.addBreakdown();
+          }
+        });
+        this.billingForm.patchValue(resp.data[0]);
+      }
+    })
+  }
+
 
   // Create a FormGroup for BillBreakdown
   createBreakdownGroup(): FormGroup {
     return this.fb.group({
-      id: [null],
-      billId: [null],
+      id: [0],
+      billId: [0],
       serviceName: ['', Validators.required],
       type: ['', Validators.required],
       amount: [0, Validators.required]
@@ -82,65 +117,49 @@ export class BillingDetailComponent {
   }
 
   // Getter to access the breakdown array
-  get breakdown(): FormArray {
-    return this.billingForm.get('breakdown') as FormArray;
+  get breaskdowns(): FormArray {
+    return this.billingForm.get('breaskdowns') as FormArray;
   }
 
   // Add a new breakdown item
   addBreakdown(): void {
-    this.breakdown.push(this.createBreakdownGroup());
+    this.breaskdowns.push(this.createBreakdownGroup());
   }
 
   // Remove a breakdown item
   removeBreakdown(index: number): void {
-    this.breakdown.removeAt(index);
+    this.breaskdowns.removeAt(index);
+    this.billCalculation();
+  }
+
+
+  billCalculation(): void {
+    const data = this.billingForm.value;
+    const breakdown = this.breaskdowns.value;
+    const billAmount = breakdown.map(d => d.amount).reduce((acc, amount) => acc + amount, 0);
+    const taxAbleAmount = billAmount - data.discount - data.insuranceCoverageAmount;
+    const taxAmount = data.taxPercentage > 0 ? ((data.taxPercentage*100)/taxAbleAmount) : 0;
+    const finalBillAmount = taxAbleAmount + taxAmount;
+    this.billingForm.controls["totalAmount"].setValue(billAmount);
+    this.billingForm.controls["taxAmount"].setValue(taxAmount);
+    this.billingForm.controls["finalBillAmount"].setValue(finalBillAmount);
   }
 
   // billing form
   protected onSubmit(): void {
-    console.log(this.billingForm.value);
+    if(this.billingForm.valid) {
+      this.apiService.postBill(this.billingForm.value).subscribe((resp) => {
+        if (resp.status == ApiStatus.Success) {
+          this.router.navigate(['billing']);
+          // Show Success toast
+        } else {
+          // Show Error toast
+        }
+      })
+    }
   }
 
   protected onCancel(): void {
     this.router.navigate(['/billing']);
-  }
-
-  // teamp function
-  private temp(): void {
-    const data = {
-      id: 1,
-      patientId: 101,
-      appoinmentId: 201,
-      billingDate: "2023-10-01",
-      billingDueDate: "2023-10-15",
-      totalAmount: 1500.0,
-      breakdown: [
-        { id: 1, billId: 1, serviceName: "Consultation", type: "consultation", amount: 300.0 },
-        { id: 2, billId: 1, serviceName: "X-Ray", type: "lab test", amount: 200.0 },
-        { id: 3, billId: 1, serviceName: "Medication", type: "medication", amount: 1000.0 }
-      ],
-      insuranceCoverageAmount: 500.0,
-      insuranceNumber: "INS-101",
-      tax: 0.1,
-      taxAmount: 150.0,
-      discounts: 100.0,
-      finalBillAmount: 1050.0,
-      paymentId: "PAY-1001",
-      paymentStatus: "Paid",
-      paymentDate: "2023-10-05",
-      amountPaid: 1050.0,
-      paymentMode: "Credit Card",
-      transactionId: "TXN-2001",
-      balanceDue: 0.0,
-      createdBy: 1,
-      createdDate: "2023-10-01",
-      updatedBy: 2,
-      updatedDate: "2023-10-02"
-    };
-
-    this.addBreakdown();
-    this.addBreakdown();
-
-    this.billingForm.patchValue(data);
   }
 }

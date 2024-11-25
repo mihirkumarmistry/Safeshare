@@ -1,10 +1,10 @@
 <div class="col-md-12">
     <div class="page-header-title">
-        <h2 class="mb-0 f-w-600 mt-2">{{appoinmentId === 0 ? 'Book' : 'Edit'}} Appoinment</h2>
+        <h2 class="mb-0 f-w-600 mt-2">{{appointmentId === 0 ? 'Book' : 'Edit'}} Appointment</h2>
     </div>
 </div>
 
-<form [formGroup]="appoinmentForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
     <div class="row gx-3">
         <!-- Registed Patient -->
         <div class="col-md-12">
@@ -16,8 +16,12 @@
         <div class="col-md-6">
             <div class="form-group mb-3">
                 <label class="form-label" for="patientId">Registed Patient</label>
-                <input id="patientId" type="text" formControlName="patientId" placeholder="Select Patient"
-                    class="form-control" />
+                <select class="form-select" formControlName="patientId" (change)="getPatientInfo($event)">
+                    <option value="">- Select -</option>
+                    @for (item of patientList; track item) {
+                    <option [value]="item.value">{{item.key}}</option>
+                    }
+                </select>
             </div>
         </div>
 
@@ -34,8 +38,8 @@
                 <input id="firstName" type="text" formControlName="firstName" placeholder="Enter first name"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('firstName').invalid && appoinmentForm.get('firstName').touched) {
-                    @if (appoinmentForm.get('firstName').errors['required']) {
+                    @if (appointmentForm.get('firstName').invalid && appointmentForm.get('firstName').touched) {
+                    @if (appointmentForm.get('firstName').errors['required']) {
                     <small class="text-danger">First name is required.</small>
                     }
                     }
@@ -48,8 +52,8 @@
                 <input id="lastName" type="text" formControlName="lastName" placeholder="Enter last name"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('lastName').invalid && appoinmentForm.get('lastName').touched) {
-                    @if (appoinmentForm.get('lastName').errors['required']) {
+                    @if (appointmentForm.get('lastName').invalid && appointmentForm.get('lastName').touched) {
+                    @if (appointmentForm.get('lastName').errors['required']) {
                     <small class="text-danger">Last name is required.</small>
                     }
                     }
@@ -59,11 +63,11 @@
         <div class="col-md-4">
             <div class="form-group mb-3">
                 <label class="form-label" for="dob">Date Of Birth *</label>
-                <input id="dob" type="date" formControlName="dob" placeholder="Select date of birth"
+                <input id="dob" type="date" formControlName="dateOfBirth" placeholder="Select date of birth"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('dob').invalid && appoinmentForm.get('dob').touched) {
-                    @if (appoinmentForm.get('dob').errors['required']) {
+                    @if (appointmentForm.get('dateOfBirth').invalid && appointmentForm.get('dateOfBirth').touched) {
+                    @if (appointmentForm.get('dateOfBirth').errors['required']) {
                     <small class="text-danger">Date Of Birth is required.</small>
                     }
                     }
@@ -76,8 +80,8 @@
                 <input id="gender" type="text" formControlName="gender" placeholder="Select gender"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('gender').invalid && appoinmentForm.get('gender').touched) {
-                    @if (appoinmentForm.get('gender').errors['required']) {
+                    @if (appointmentForm.get('gender').invalid && appointmentForm.get('gender').touched) {
+                    @if (appointmentForm.get('gender').errors['required']) {
                     <small class="text-danger">Gender is required.</small>
                     }
                     }
@@ -90,8 +94,8 @@
                 <input id="contact" type="text" formControlName="contact" placeholder="Enter contact number"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('contact').invalid && appoinmentForm.get('contact').touched) {
-                    @if (appoinmentForm.get('contact').errors['required']) {
+                    @if (appointmentForm.get('contact').invalid && appointmentForm.get('contact').touched) {
+                    @if (appointmentForm.get('contact').errors['required']) {
                     <small class="text-danger">Contact is required.</small>
                     }
                     }
@@ -104,8 +108,8 @@
                 <input id="addressLine1" type="text" formControlName="addressLine1" placeholder="Enter Address Line 1"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('addressLine1').invalid && appoinmentForm.get('addressLine1').touched) {
-                    @if (appoinmentForm.get('addressLine1').errors['required']) {
+                    @if (appointmentForm.get('addressLine1').invalid && appointmentForm.get('addressLine1').touched) {
+                    @if (appointmentForm.get('addressLine1').errors['required']) {
                     <small class="text-danger">Address Line 1 is required.</small>
                     }
                     }
@@ -124,8 +128,8 @@
                 <label class="form-label" for="city">City *</label>
                 <input id="city" type="text" formControlName="city" placeholder="Enter city" class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('city').invalid && appoinmentForm.get('city').touched) {
-                    @if (appoinmentForm.get('city').errors['required']) {
+                    @if (appointmentForm.get('city').invalid && appointmentForm.get('city').touched) {
+                    @if (appointmentForm.get('city').errors['required']) {
                     <small class="text-danger">City is required.</small>
                     }
                     }
@@ -137,8 +141,8 @@
                 <label class="form-label" for="state">State *</label>
                 <input id="state" type="text" formControlName="state" placeholder="Enter state" class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('state').invalid && appoinmentForm.get('state').touched) {
-                    @if (appoinmentForm.get('state').errors['required']) {
+                    @if (appointmentForm.get('state').invalid && appointmentForm.get('state').touched) {
+                    @if (appointmentForm.get('state').errors['required']) {
                     <small class="text-danger">State is required.</small>
                     }
                     }
@@ -151,8 +155,8 @@
                 <input id="country" type="text" formControlName="country" placeholder="Enter country"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('country').invalid && appoinmentForm.get('country').touched) {
-                    @if (appoinmentForm.get('country').errors['required']) {
+                    @if (appointmentForm.get('country').invalid && appointmentForm.get('country').touched) {
+                    @if (appointmentForm.get('country').errors['required']) {
                     <small class="text-danger">Country is required.</small>
                     }
                     }
@@ -165,8 +169,8 @@
                 <input id="zipCode" type="text" formControlName="zipCode" placeholder="Enter zip code"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('zipCode').invalid && appoinmentForm.get('zipCode').touched) {
-                    @if (appoinmentForm.get('zipCode').errors['required']) {
+                    @if (appointmentForm.get('zipCode').invalid && appointmentForm.get('zipCode').touched) {
+                    @if (appointmentForm.get('zipCode').errors['required']) {
                     <small class="text-danger">Zip Code is required.</small>
                     }
                     }
@@ -174,22 +178,23 @@
             </div>
         </div>
 
-        <!-- Schedule Appoinment -->
+        <!-- Schedule Appointment -->
         <div class="col-md-12">
             <div class="form-section">
-                <span>Schedule Appoinment</span>
+                <span>Schedule Appointment</span>
                 <hr>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group mb-3">
-                <label class="form-label" for="type">Appoinment Type *</label>
-                <input id="type" type="text" formControlName="type" placeholder="Select appoinment type"
+                <label class="form-label" for="type">Appointment Type *</label>
+                <input id="type" type="text" formControlName="appointmentType" placeholder="Select appoinment type"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('type').invalid && appoinmentForm.get('type').touched) {
-                    @if (appoinmentForm.get('type').errors['required']) {
-                    <small class="text-danger">Appoinment type is required.</small>
+                    @if (appointmentForm.get('appointmentType').invalid &&
+                    appointmentForm.get('appointmentType').touched) {
+                    @if (appointmentForm.get('appointmentType').errors['required']) {
+                    <small class="text-danger">Appointment type is required.</small>
                     }
                     }
                 </div>
@@ -197,13 +202,14 @@
         </div>
         <div class="col-md-6">
             <div class="form-group mb-3">
-                <label class="form-label" for="appoinmentDate">Appoinment Date *</label>
-                <input id="appoinmentDate" type="text" formControlName="appoinmentDate"
+                <label class="form-label" for="appoinmentDate">Appointment Date *</label>
+                <input id="appoinmentDate" type="date" formControlName="appointmentDate"
                     placeholder="Select appoinment date" class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('appoinmentDate').invalid && appoinmentForm.get('appoinmentDate').touched) {
-                    @if (appoinmentForm.get('appoinmentDate').errors['required']) {
-                    <small class="text-danger">Appoinment date is required.</small>
+                    @if (appointmentForm.get('appointmentDate').invalid &&
+                    appointmentForm.get('appointmentDate').touched) {
+                    @if (appointmentForm.get('appointmentDate').errors['required']) {
+                    <small class="text-danger">Appointment date is required.</small>
                     }
                     }
                 </div>
@@ -211,13 +217,14 @@
         </div>
         <div class="col-md-6">
             <div class="form-group mb-3">
-                <label class="form-label" for="appoinmentTime">Appoinment Time *</label>
-                <input id="appoinmentTime" type="text" formControlName="appoinmentTime"
+                <label class="form-label" for="appoinmentTime">Appointment Time *</label>
+                <input id="appoinmentTime" type="time" formControlName="appointmentTime"
                     placeholder="Select appoinment time" class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('appoinmentTime').invalid && appoinmentForm.get('appoinmentTime').touched) {
-                    @if (appoinmentForm.get('appoinmentTime').errors['required']) {
-                    <small class="text-danger">Appoinment time is required.</small>
+                    @if (appointmentForm.get('appointmentTime').invalid &&
+                    appointmentForm.get('appointmentTime').touched) {
+                    @if (appointmentForm.get('appointmentTime').errors['required']) {
+                    <small class="text-danger">Appointment time is required.</small>
                     }
                     }
                 </div>
@@ -229,9 +236,9 @@
                 <input id="reason" type="text" formControlName="reason" placeholder="Enter appoinment reason"
                     class="form-control" />
                 <div>
-                    @if (appoinmentForm.get('reason').invalid && appoinmentForm.get('reason').touched) {
-                    @if (appoinmentForm.get('reason').errors['required']) {
-                    <small class="text-danger">Appoinment reason is required.</small>
+                    @if (appointmentForm.get('reason').invalid && appointmentForm.get('reason').touched) {
+                    @if (appointmentForm.get('reason').errors['required']) {
+                    <small class="text-danger">Appointment reason is required.</small>
                     }
                     }
                 </div>
@@ -248,10 +255,15 @@
         <div class="col-md-6">
             <div class="form-group mb-3">
                 <label class="form-label" for="doctorId">Doctor *</label>
-                <input id="doctorId" type="text" formControlName="doctorId" placeholder="Select doctor" class="form-control" />
+                <select class="form-select" formControlName="doctorId">
+                    <option value="">- Select -</option>
+                    @for (item of doctorList; track item) {
+                    <option [value]="item.value">{{item.key}}</option>
+                    }
+                </select>
                 <div>
-                    @if (appoinmentForm.get('doctorId').invalid && appoinmentForm.get('doctorId').touched) {
-                    @if (appoinmentForm.get('doctorId').errors['required']) {
+                    @if (appointmentForm.get('doctorId').invalid && appointmentForm.get('doctorId').touched) {
+                    @if (appointmentForm.get('doctorId').errors['required']) {
                     <small class="text-danger">Doctor is required.</small>
                     }
                     }
@@ -262,7 +274,7 @@
         <div class="col-md-12">
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary mb-3 me-3" (click)="onCancel()">Cancel</button>
-                <button type="submit" class="btn btn-primary mb-3" [disabled]="appoinmentForm.invalid">{{appoinmentId
+                <button type="submit" class="btn btn-primary mb-3" [disabled]="appointmentForm.invalid">{{appointmentId
                     === 0 ? 'Save' : 'Update'}}</button>
             </div>
         </div>

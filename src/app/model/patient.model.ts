@@ -4,7 +4,7 @@ export class Patient
     firstName: string;
     middleName: string;
     lastName: string;
-    dob: Date;
+    dateOfBirth: Date;
     gender: string;
     imageUrl: string;
     addressLine1: string;
@@ -15,20 +15,10 @@ export class Patient
     zipCode: string;
     contact: string;
     emergencyContact: string;
-    contactName: string;
+    contactPersonName: string;
     relationship: string;
-    providerName: string;
+    insuranceProviderName: string;
     policyNumber: string;
     policyholderName: string;
     insuranceContact: string;
 }
-
-export class PatientInsurance {
-    id: number;
-    patientId: number;
-    providerName: string;
-    policyNumber: string;
-    policyholderName: string;
-    insuranceContact: string;
-}
-
