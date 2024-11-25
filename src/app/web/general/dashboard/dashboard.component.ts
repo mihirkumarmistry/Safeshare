@@ -3,12 +3,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // project import
-import tableData from '../../../../fake-data/patient-data.json';
+import tableData from '../../../../fake-data/default-data.json';
 import { SharedModule } from '../../../../app/theme/shared/shared.module';
 
 // icons
 import { IconService } from '@ant-design/icons-angular';
 import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline } from '@ant-design/icons-angular/icons';
+import { MonthlyBarChartComponent } from './monthly-bar-chart/monthly-bar-chart.component';
+import { IncomeOverviewChartComponent } from './income-overview-chart/income-overview-chart.component';
+import { AnalyticsChartComponent } from './analytics-chart/analytics-chart.component';
+import { SalesReportChartComponent } from './sales-report-chart/sales-report-chart.component';
 
 @Component({
   selector: 'app-default',
@@ -16,6 +20,10 @@ import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline }
   imports: [
     CommonModule,
     SharedModule,
+    MonthlyBarChartComponent,
+    IncomeOverviewChartComponent,
+    AnalyticsChartComponent,
+    SalesReportChartComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
