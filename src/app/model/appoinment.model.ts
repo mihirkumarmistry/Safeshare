@@ -1,28 +1,22 @@
-export class Appoinment
-{
+export class Appointment {
     id: number;
     patientId: number;
-
-    // new patient
     firstName: string;
+    middleName: string;
     lastName: string;
-    dob: Date;
+    dateOfBirth: Date;
     gender: string;
     contact: string;
-    addressLine1: string;
-    addressLine2: string;
-    city: string;
-    state: string;
-    country: string;
-    zipCode: string;
-
-
-    // appoinment details
-    type: string;
-    appoinmentDate: Date;
-    appoinmentTime: Date;
+    appointmentType: string;
+    appointmentDate: Date;
+    appointmentTime: Date;
     reason: string;
-
-    // doctor name
     doctorId: number;
+    addressLine1?: string;
+    addressLine2?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    zipCode?: string;
+    doctorName?: string;
 }

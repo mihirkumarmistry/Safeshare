@@ -1,6 +1,9 @@
-import { UserType } from "./auth.model";
+export class Auth {
+    username: string;
+    password: string;
+}
 
-export  class User {
+export class AuthResp {
     id: number;
     firstName: string;
     lastName: string;
@@ -14,4 +17,12 @@ export  class User {
     isNewPassword: boolean;
     userTypeName: string;
     accessToken: string;
+}
+
+export class UserType
+{
+    id: number;
+    name: string;
+    isAdmin: boolean;
+    isActive: boolean;
 }

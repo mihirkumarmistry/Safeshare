@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../../theme/shared/shared.module';
 
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { IconService } from '@ant-design/icons-angular';
 import { DeleteOutline, EditOutline, EyeOutline, PlusOutline } from '@ant-design/icons-angular/icons';
-import tableData from '../../../../fake-data/medical-history-data.json';
-import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { ApiStatus } from '../../../model/api.model';
+import { Medicalhistory } from '../../../model/medical-history.model';
+import { ApiService } from '../../../service/api.service';
 
 @Component({
   selector: 'app-medical-history-list',
@@ -15,7 +17,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './medical-history-list.component.scss'
 })
 export class MedicalHistoryListComponent {
-  medicalHistoryList = tableData;
+  medicalHistoryList: Medicalhistory[] = [];
   pageSize = 10;
   pageStart = 0;
   pageEnd = 10;
@@ -23,6 +25,7 @@ export class MedicalHistoryListComponent {
 
   constructor (
     private router: Router,
+    private apiService: ApiService,
     private iconService: IconService
   ) {
     this.iconService.addIcon(...[
@@ -31,6 +34,16 @@ export class MedicalHistoryListComponent {
       DeleteOutline,
       PlusOutline,
     ]);
+
+    this.getMedicalHistory();
+  }
+
+  protected getMedicalHistory(): void {
+    this.apiService.getMedicalhistory().subscribe((resp) => {
+      if (resp.status == ApiStatus.Success) {
+        this.medicalHistoryList = resp.data;
+      }
+    });
   }
 
   // medical history crud
@@ -39,6 +52,18 @@ export class MedicalHistoryListComponent {
   }
   protected editMedicalHistory(id: number): void {
     this.router.navigate(['/medical-history/'+id]);
+  }
+  protected deleteMedicalHistory(data: Medicalhistory): void {
+    if (confirm("Are you sure you want to delete this record?")) {
+      this.apiService.deleteMedicalhistory(data).subscribe((resp) => {
+        if (resp.status == ApiStatus.Success) {
+          // Show success toast
+          this.getMedicalHistory();
+        } else {
+          // Show error toast
+        }
+      })
+    }
   }
 
   // pagination

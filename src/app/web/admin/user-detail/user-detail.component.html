@@ -41,11 +41,11 @@
                 <div class="col-md-12">
                     <div class="form-group mb-3">
                         <label class="form-label" for="email">Email *</label>
-                        <input id="email" type="email" formControlName="email" placeholder="Enter email"
+                        <input id="email" type="email" formControlName="username" placeholder="Enter email"
                             class="form-control" />
                         <div>
-                            @if (userForm.get('email').invalid && userForm.get('email').touched) {
-                            @if (userForm.get('email').errors['required']) {
+                            @if (userForm.get('username').invalid && userForm.get('username').touched) {
+                            @if (userForm.get('username').errors['required']) {
                             <small class="text-danger">Email is required.</small>
                             }
                             }
@@ -69,11 +69,11 @@
                 <div class="col-md-12">
                     <div class="form-group mb-3">
                         <label class="form-label" for="type">Type *</label>
-                        <input id="type" type="type" formControlName="type" placeholder="Select type"
+                        <input id="type" type="type" formControlName="userTypeId" placeholder="Select type"
                             class="form-control" />
                         <div>
-                            @if (userForm.get('type').invalid && userForm.get('type').touched) {
-                            @if (userForm.get('type').errors['required']) {
+                            @if (userForm.get('userTypeId').invalid && userForm.get('userTypeId').touched) {
+                            @if (userForm.get('userTypeId').errors['required']) {
                             <small class="text-danger">Type is required.</small>
                             }
                             }

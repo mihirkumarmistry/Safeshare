@@ -1,34 +1,27 @@
 export class Billing {
     id: number;
-    // patient detail
+    name: string;
     patientId: number;
-    appoinmentId: number;
-
-    
-    // billing info
+    appointmentId: number;
+    taxPercentage: number;
     billingDate: Date;
     billingDueDate: Date;
-    breakdown: BillBreakdown[];
-    totalAmount: number;
-    insuranceCoverageAmount: number;
-    insuranceNumber: string;
-    tax: number;
-    taxAmount: number;
-    discounts: number;
-    finalBillAmount: number;
 
-    // payment Info
-    paymentId: string;
-    paymentStatus: string; // Paid, Pending, Overdue
+    breaskdowns: BillBreakdown[];
+    discount: number;
+    taxAmount: number;
+    billAmount: number;
+    insuranceNumber: string;
+    finalBillAmount: number;
+    insuranceCoverageAmount: number;
     paymentDate: Date;
+    paymentMode: string;
     amountPaid: number;
-    paymentMode: string; // Credit Card, Debit Card, Cash, bank Transfer, Online Payment
     transactionId: string;
     balanceDue: number;
-    createdBy: number;
-    createdDate: Date;
-    updatedBy: number;
-    updatedDate: Date;
+    paymentStatus: string;
+    isDeleted: false;
+    patientName: string;
 }
 
 export class BillBreakdown {
@@ -38,4 +31,3 @@ export class BillBreakdown {
     type: string; // consultation, lab test, medication, procedures
     amount: number; 
 }
-
